@@ -89,7 +89,7 @@ const corsOptions = {
   // origin: 'http://localhost:3000', // Allow all origins. You can restrict this to specific domains by listing them.
   origin: 'https://amazon.saumiccraft.com', // Allow all origins. You can restrict this to specific domains by listing them.
 
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Allowed HTTP methods
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS',"PATCH"], // Allowed HTTP methods
   allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
 };          
 app.use(cors(corsOptions));
