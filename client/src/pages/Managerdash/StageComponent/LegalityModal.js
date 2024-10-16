@@ -15,9 +15,12 @@ const LegalityModal = ({ visible, onCancel, record, fetchData }) => {
 
 
   // Function to disable all dates before yesterday
-  const disabledDate = (current) => {
-    const yesterday = moment().subtract(1, 'days').startOf('day');
-    return current && current < yesterday;
+  // const disabledDate = (current) => {
+  //   const yesterday = moment().subtract(1, 'days').startOf('day');
+  //   return current && current < yesterday;
+  // };
+  const disabledDate = () => {
+    return false; // No date is disabled, so all dates are selectable
   };
 
 

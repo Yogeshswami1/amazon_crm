@@ -10,9 +10,12 @@ const AddCreditModal = ({ visible, onCancel, record, fetchData }) => {
   const apiUrl = process.env.REACT_APP_BACKEND_URL;
 
   // Function to disable past dates (only today, tomorrow, and future are selectable)
-  const disabledDate = (current) => {
-    const yesterday = moment().subtract(1, 'days').startOf('day');
-    return current && current < yesterday; // Allow yesterday, today, and future dates
+  // const disabledDate = (current) => {
+  //   const yesterday = moment().subtract(1, 'days').startOf('day');
+  //   return current && current < yesterday; // Allow yesterday, today, and future dates
+  // };
+  const disabledDate = () => {
+    return false; // No date is disabled, so all dates are selectable
   };
 
   const handleAddCreditSave = async () => {

@@ -12,9 +12,12 @@ const ShippingModal = ({ visible, onCancel, record, fetchData }) => {
   const apiUrl = process.env.REACT_APP_BACKEND_URL;
 
   // Disable past dates (only yesterday, today, and future dates selectable)
-  const disabledDate = (current) => {
-    const yesterday = moment().subtract(1, 'days').startOf('day');
-    return current && current < yesterday;
+  // const disabledDate = (current) => {
+  //   const yesterday = moment().subtract(1, 'days').startOf('day');
+  //   return current && current < yesterday;
+  // };
+  const disabledDate = () => {
+    return false; // No date is disabled, so all dates are selectable
   };
 
   const handleSave = async () => {

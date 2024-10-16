@@ -496,20 +496,41 @@ const Stagecomponent = (record) => {
       const response = await axios.get(`${apiUrl}/api/contact/getall?managerId=${managerId}`);
       
       // Process the data
-      const processedData = response.data.map((item) => ({
-        ...item,
-        simpleStatus: {
-          ovc: item.ovc?.startsWith('Done') ? 'Done' : 'Not Done',
-          legality: item.legality?.startsWith('Done') ? 'Done' : 'Not Done',
-          idCard: item.idCard?.startsWith('Done') ? 'Done' : 'Not Done',
-          training: item.training?.startsWith('Done') ? 'Done' : 'Not Done',
-          ebook: item.ebook?.startsWith('Done') ? 'Done' : 'Not Done',
-          supportPortal: item.supportPortal?.startsWith('Done') ? 'Done' : 'Not Done',
-          walletPortal: item.walletPortal?.startsWith('Done') ? 'Done' : 'Not Done',
-          gallery: item.gallery?.startsWith('Done') ? 'Done' : 'Not Done',
-          stage1Completion: item.stage1Completion?.startsWith('Done') ? 'Done' : 'Not Done',
-        }
-      }));
+      // const processedData = response.data.map((item) => ({
+      //   ...item,
+      //   simpleStatus: {
+      //     ovc: item.ovc?.startsWith('Done') ? 'Done' : 'Not Done',
+      //     legality: item.legality?.startsWith('Done') ? 'Done' : 'Not Done',
+      //     idCard: item.idCard?.startsWith('Done') ? 'Done' : 'Not Done',
+      //     training: item.training?.startsWith('Done') ? 'Done' : 'Not Done',
+      //     ebook: item.ebook?.startsWith('Done') ? 'Done' : 'Not Done',
+      //     supportPortal: item.supportPortal?.startsWith('Done') ? 'Done' : 'Not Done',
+      //     walletPortal: item.walletPortal?.startsWith('Done') ? 'Done' : 'Not Done',
+      //     gallery: item.gallery?.startsWith('Done') ? 'Done' : 'Not Done',
+      //     stage1Completion: item.stage1Completion?.startsWith('Done') ? 'Done' : 'Not Done',
+      //   }
+      // }));
+      const processedData = response.data.map((item) => {
+        const status = {
+          ovc: item.ovc ? 'Done' : 'Not Done',
+          legality: item.legality ? 'Done' : 'Not Done',
+          idCard: item.idCard ? 'Done' : 'Not Done',
+          training: item.training ? 'Done' : 'Not Done',
+          ebook: item.ebook ? 'Done' : 'Not Done',
+          supportPortal: item.supportPortal ? 'Done' : 'Not Done',
+          walletPortal: item.walletPortal ? 'Done' : 'Not Done',
+          gallery: item.gallery ? 'Done' : 'Not Done',
+          stage1Completion: item.stage1Completion ? 'Done' : 'Not Done',
+          payment1: item.payment1.amount > 0 ? 'Done' : 'Not Done',
+          payment2: item.payment2.amount > 0 ? 'Done' : 'Not Done',
+          payment3: item.payment3.amount > 0 ? 'Done' : 'Not Done',
+          payment4: item.payment4.amount > 0 ? 'Done' : 'Not Done',
+        };
+      
+        return { ...item, simpleStatus: status };
+      });
+      
+      
   
       // Debugging: Log the processed data to see the archive values
       console.log("Processed Data:", processedData);
@@ -620,12 +641,12 @@ const isRowRed = (record) => {
     },
     {
       title: "OVC",
-      dataIndex: "ovc",
+      dataIndex: ["simpleStatus", "ovc"],
       filters: [
         { text: 'Done', value: 'Done' },
         { text: 'Not Done', value: 'Not Done' },
       ],
-      onFilter: (value, record) => record.ovc === value,
+      onFilter: (value, record) => record.simpleStatus.ovc === value,
       render: (text, record) => (
         <Button
           style={{ backgroundColor: record.ovc === 'Done' ? '#90EE90' : undefined }}
