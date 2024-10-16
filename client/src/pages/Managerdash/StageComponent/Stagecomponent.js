@@ -635,6 +635,23 @@ const isRowRed = (record) => {
         </Button>
       ),
     },
+    // {
+    //   title: "Legality",
+    //   dataIndex: "legality",
+    //   filters: [
+    //     { text: 'Done', value: 'Done' },
+    //     { text: 'Not Done', value: 'Not Done' },
+    //   ],
+    //   onFilter: (value, record) => record.legality === value,
+    //   render: (text, record) => (
+    //     <Button
+    //       style={{ backgroundColor: record.legality === 'Done' ? '#90EE90' : undefined }}
+    //       onClick={() => openModal('legality', record)}
+    //     >
+    //       Legality
+    //     </Button>
+    //   ),
+    // },
     {
       title: "Legality",
       dataIndex: "legality",
@@ -645,13 +662,16 @@ const isRowRed = (record) => {
       onFilter: (value, record) => record.legality === value,
       render: (text, record) => (
         <Button
-          style={{ backgroundColor: record.legality === 'Done' ? '#90EE90' : undefined }}
+          style={{
+            backgroundColor: record.legalityLink && record.legality !== 'Done' ? '#FFFF00' : (record.legality === 'Done' ? '#90EE90' : undefined),
+          }}
           onClick={() => openModal('legality', record)}
         >
           Legality
         </Button>
       ),
     },
+    
     {
       title: "ID Card",
       dataIndex: "idCard",
