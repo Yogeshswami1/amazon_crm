@@ -118,6 +118,7 @@ import Franchisedashboard from "./pages/Franchise/Dashboard";
 import Socialdashboard from "./pages/Social/Dashboard";
 
 import Waba from "./pages/Managerdash/Waba";
+import AmazonAnalytics from "./pages/Managerdash/AmazonAnalytics";
 
 function App() {
   return (
@@ -148,6 +149,8 @@ function App() {
               <ProtectedRoute exact path="/dashwithfilters" component={Dashwithfilters} roles={['admin', 'manager']} />
               <ProtectedRoute exact path="/managersetpassword" component={Managersetpassword} roles={['manager']} />
               <ProtectedRoute exact path="/waba" component={Waba} roles={['manager']} />
+              <ProtectedRoute exact path="/amazonanalytics" component={AmazonAnalytics} roles={['manager']} />
+
 
               <ProtectedRoute exact path="/accountanttab" component={Accountanttab} roles={['admin']} />
               <ProtectedRoute exact path="/supervisortab" component={Supervisortab} roles={['admin']} />
