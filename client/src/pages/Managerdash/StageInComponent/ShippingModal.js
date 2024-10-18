@@ -39,6 +39,8 @@ const ShippingModal = ({ visible, onCancel, record, fetchData }) => {
       <Form layout="vertical">
         <Form.Item label="Shipping Method">
           <Select value={shipping} onChange={setShipping}>
+          <Option value="Select Status">Select Shipping</Option> {/* Allow selecting back */}
+
             <Option value="self ship">Self Ship</Option>
             <Option value="easy ship">Easy Ship</Option>
           </Select>

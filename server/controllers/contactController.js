@@ -867,3 +867,24 @@ export const deleteTask = async (req, res) => {
     res.status(500).json({ message: 'Failed to delete task' });
   }
 };
+
+
+export const updateAccountOpenStatus = async (req, res) => {
+  const { id } = req.params;
+  const { accountOpenStatus } = req.body;
+
+  try {
+    const contact = await Contact.findById(id);
+
+    if (!contact) {
+      return res.status(404).json({ message: 'Contact not found' });
+    }
+
+    contact.accountOpenStatus = accountOpenStatus;
+    await contact.save();
+
+    res.status(200).json({ message: 'Account Open Status updated successfully' });
+  } catch (error) {
+    res.status(500).json({ message: 'Error updating Account Open Status', error });
+  }
+};

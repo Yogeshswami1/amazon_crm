@@ -56,15 +56,24 @@ const Stagecomcomponent = (record) => {
       const processedData = response.data.map((item) => ({
         ...item,
         simpleStatus: {
-          ovc: item.ovc?.startsWith('Done') ? 'Done' : 'Not Done',
-          legality: item.legality?.startsWith('Done') ? 'Done' : 'Not Done',
-          idCard: item.idCard?.startsWith('Done') ? 'Done' : 'Not Done',
-          training: item.training?.startsWith('Done') ? 'Done' : 'Not Done',
-          ebook: item.ebook?.startsWith('Done') ? 'Done' : 'Not Done',
-          supportPortal: item.supportPortal?.startsWith('Done') ? 'Done' : 'Not Done',
-          walletPortal: item.walletPortal?.startsWith('Done') ? 'Done' : 'Not Done',
-          gallery: item.gallery?.startsWith('Done') ? 'Done' : 'Not Done',
-          stage1Completion: item.stage1Completion?.startsWith('Done') ? 'Done' : 'Not Done',
+          document: item.document ? 'Done' : 'Not Done',
+          storeName: item.storeName ? 'Done' : 'Not Done',
+          accountOpenCom: item.accountOpenCom ? 'Done' : 'Not Done',
+          idAndPassCom: item.idAndPassCom ? 'Done' : 'Not Done',
+          videoKyc: item.videoKyc ? 'Done' : 'Not Done',
+          deduct: item.deduct ? 'Done' : 'Not Done',
+          listingsCom: item.listingsCom ? 'Done' : 'Not Done',
+          launchCom: item.launchCom ? 'Done' : 'Not Done',
+          nia: item.nia ? 'Done' : 'Not Done',
+          addCredit: item.addCredit ? 'Done' : 'Not Done',
+          adzone: item.adzone ? 'Done' : 'Not Done',
+          fbaCom: item.fbaCom ? 'Done' : 'Not Done',
+          cvcCom: item.cvcCom ? 'Done' : 'Not Done',
+          stage3Completion: item.stage3Completion ? 'Done' : 'Not Done',
+
+
+
+
         }
       }));
   
@@ -160,12 +169,12 @@ const isConditionMet = (baseDate, daysAfter, condition) => {
     },
     {
       title: "Document Status",
-      dataIndex: "document",
+      dataIndex: ["simpleStatus", "document"],
       filters: [
         { text: 'Done', value: 'Done' },
         { text: 'Not Done', value: 'Not Done' },
       ],
-      onFilter: (value, record) => record.document === value,
+      onFilter: (value, record) => record.simpleStatus.document === value,
       render: (text, record) => (
         <Button
           style={{ backgroundColor: record.document === 'Done' ? '#90EE90' : undefined }}
@@ -177,12 +186,12 @@ const isConditionMet = (baseDate, daysAfter, condition) => {
     },
     {
       title: "Store Name",
-      dataIndex: "storeName",
+      dataIndex: ["simpleStatus", "storeName"],
       filters: [
         { text: 'Done', value: 'Done' },
         { text: 'Not Done', value: 'Not Done' },
       ],
-      onFilter: (value, record) => record.storeName === value,
+      onFilter: (value, record) => record.simpleStatus.storeName === value,
       render: (text, record) => (
         <Button
         style={{ backgroundColor: record?.storeName ? '#90EE90' : undefined }}  // Light green if selectedTheme has a value
@@ -194,12 +203,13 @@ const isConditionMet = (baseDate, daysAfter, condition) => {
     },
     {
       title: "Account Open",
-      dataIndex: "accountOpenCom",
+      dataIndex: ["simpleStatus", "accountOpenCom"],
+
       filters: [
         { text: 'Done', value: 'Done' },
         { text: 'Not Done', value: 'Not Done' },
       ],
-      onFilter: (value, record) => record.accountOpenCom === value,
+      onFilter: (value, record) => record.simpleStatus.accountOpenCom === value,
       render: (text, record) => (
         <Button
           style={{ backgroundColor: record.accountOpenCom === 'Done' ? '#90EE90' : undefined }}
@@ -211,12 +221,12 @@ const isConditionMet = (baseDate, daysAfter, condition) => {
     },
     {
       title: "ID & PASS",
-      dataIndex: "idAndPassCom",
+      dataIndex: ["simpleStatus", "idAndPassCom"],
       filters: [
         { text: 'Done', value: 'Done' },
         { text: 'Not Done', value: 'Not Done' },
       ],
-      onFilter: (value, record) => record.idAndPassCom === value,
+      onFilter: (value, record) => record.simpleStatus.idAndPassCom === value,
       render: (text, record) => (
         <Button
           onClick={() => openModal('idAndPassCom', record)}
@@ -230,12 +240,12 @@ const isConditionMet = (baseDate, daysAfter, condition) => {
     },    
     {
       title: "Video KYC",
-      dataIndex: "videoKyc",
+      dataIndex: ["simpleStatus", "videoKyc"],
       filters: [
         { text: 'Done', value: 'Done' },
         { text: 'Not Done', value: 'Not Done' },
       ],
-      onFilter: (value, record) => record.videoKyc === value,
+      onFilter: (value, record) => record.simpleStatus.videoKyc === value,
       render: (text, record) => (
         <Button
           style={{ backgroundColor: record.videoKyc === 'Done' ? '#90EE90' : undefined }}
@@ -247,12 +257,12 @@ const isConditionMet = (baseDate, daysAfter, condition) => {
     },
     {
       title: "1$ Deduct",
-      dataIndex: "deduct",
+      dataIndex: ["simpleStatus", "deduct"],
       filters: [
         { text: 'Done', value: 'Done' },
         { text: 'Not Done', value: 'Not Done' },
       ],
-      onFilter: (value, record) => record.deduct === value,
+      onFilter: (value, record) => record.simpleStatus.deduct === value,
       render: (text, record) => (
         <Button
           style={{ backgroundColor: record.deduct === 'Done' ? '#90EE90' : undefined }}
@@ -264,12 +274,12 @@ const isConditionMet = (baseDate, daysAfter, condition) => {
     },
     {
       title: "Listings",
-      dataIndex: "listingsCom",
+      dataIndex: ["simpleStatus", "listingsCom"],
       filters: [
         { text: 'Done', value: 'Done' },
         { text: 'Not Done', value: 'Not Done' },
       ],
-      onFilter: (value, record) => record.listingsCom === value,
+      onFilter: (value, record) => record.simpleStatus.listingsCom === value,
       render: (text, record) => (
         <Button
           style={{ backgroundColor: record.listingsCom ? '#90EE90' : undefined }}
@@ -281,12 +291,12 @@ const isConditionMet = (baseDate, daysAfter, condition) => {
     },
     {
       title: "Launch",
-      dataIndex: "launchDateCom",
+      dataIndex: ["simpleStatus", "launchCom"],
       filters: [
         { text: 'Done', value: 'Done' },
         { text: 'Not Done', value: 'Not Done' },
       ],
-      onFilter: (value, record) => record.launchCom === value,
+      onFilter: (value, record) => record.simpleStatus.launchCom === value,
       render: (text, record) => (
         <Button
           style={{ backgroundColor: record.launchCom === 'Done' ? '#90EE90' : undefined }}
@@ -298,12 +308,14 @@ const isConditionMet = (baseDate, daysAfter, condition) => {
     },
     {
       title: "NIA",
+      dataIndex: ["simpleStatus", "nia"],
+
       dataIndex: "nia",
       filters: [
         { text: 'Done', value: 'Done' },
         { text: 'Not Done', value: 'Not Done' },
       ],
-      onFilter: (value, record) => record.nia === value,
+      onFilter: (value, record) => record.simpleStatus.nia === value,
       render: (text, record) => (
         <Button
           style={{ backgroundColor: record.nia === 'Done' ? '#90EE90' : undefined }}
@@ -315,12 +327,12 @@ const isConditionMet = (baseDate, daysAfter, condition) => {
     },
     {
       title: "50$ Add Credit",
-      dataIndex: "addCredit",
+      dataIndex: ["simpleStatus", "addCredit"],
       filters: [
         { text: 'Done', value: 'Done' },
         { text: 'Not Done', value: 'Not Done' },
       ],
-      onFilter: (value, record) => record.addCredit === value,
+      onFilter: (value, record) => record.simpleStatus.addCredit === value,
       render: (text, record) => (
         <Button
           style={{ backgroundColor: record.addCredit === 'Done' ? '#90EE90' : undefined }}
@@ -331,8 +343,15 @@ const isConditionMet = (baseDate, daysAfter, condition) => {
       ),
     },
     {
-      title: "Ad Zone",
-      dataIndex: "adzone",
+      title: "Ads Status",
+      dataIndex: ["simpleStatus", "adzone"],
+
+      filters: [
+        { text: 'Done', value: 'Done' },
+        { text: 'Not Done', value: 'Not Done' },
+      ],
+      onFilter: (value, record) => record.simpleStatus.adzone === value,
+
       render: (text, record) => (
         <Button
           style={{ backgroundColor: record.adzone === 'Done' ? '#90EE90' : undefined }}
@@ -344,12 +363,12 @@ const isConditionMet = (baseDate, daysAfter, condition) => {
     },
     {
       title: "FBA",
-      dataIndex: "fbaCom",
+      dataIndex: ["simpleStatus", "fbaCom"],
       filters: [
         { text: 'Done', value: 'Done' },
         { text: 'Not Done', value: 'Not Done' },
       ],
-      onFilter: (value, record) => record.fbaCom === value,
+      onFilter: (value, record) => record.simpleStatus.fbaCom === value,
       render: (text, record) => (
         <Button
           style={{ backgroundColor: record.fbaCom === 'Done' ? '#90EE90' : undefined }}
@@ -361,12 +380,12 @@ const isConditionMet = (baseDate, daysAfter, condition) => {
     },
     {
       title: "CVC",
-      dataIndex: "cvcCom",
+      dataIndex: ["simpleStatus", "cvcCom"],
       filters: [
         { text: 'Done', value: 'Done' },
         { text: 'Not Done', value: 'Not Done' },
       ],
-      onFilter: (value, record) => record.cvcCom === value,
+      onFilter: (value, record) => record.simpleStatus.cvcCom === value,
       render: (text, record) => (
         <Button
           style={{ backgroundColor: record.cvcCom === 'Done' ? '#90EE90' : undefined }}
@@ -378,12 +397,14 @@ const isConditionMet = (baseDate, daysAfter, condition) => {
     },
     {
       title: "Stage Completed",
+      dataIndex: ["simpleStatus", "stage3Completion"],
+
       dataIndex: "stage3Completion",
       filters: [
         { text: 'Done', value: 'Done' },
         { text: 'Not Done', value: 'Not Done' },
       ],
-      onFilter: (value, record) => record.stage3Completion === value,
+      onFilter: (value, record) => record.simpleStatus.stage3Completion === value,
       render: (text, record) => (
         <Button
           style={{ backgroundColor: record.stage3Completion === 'Done' ? '#90EE90' : undefined }}

@@ -253,6 +253,11 @@ const contactSchema = new Schema({
   accountOpenInDate: {
     type: String,
   },
+
+  statusDate: {
+    type: String,
+
+  },
   idAndPassIn: {
     type: idAndPassInSchema,
   },
@@ -309,6 +314,14 @@ const contactSchema = new Schema({
   },
   fbaInDate: {
     type: String,
+  },
+  fbaLive: {
+    type: String,
+  },
+  accountOpenStatus: {
+    type: String,
+    enum: ['Already', 'Saumiccraft'],  // Optional: limit the values to "Already" and "Saumiccraft"
+    default: '',  // Set default value if needed
   },
   stateCom: {
     type: String,

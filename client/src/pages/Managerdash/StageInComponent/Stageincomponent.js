@@ -1297,8 +1297,9 @@ import FbaModal from './FbaModal';
 import CvcModal from './CvcModal';
 import Stage2CompletionModal from './Stage2CompletionModal';
 import IDPASSModal from './IDPASSModal';
+import FBALiveModal from './FBALiveModal';
 import './ModalCss.css';
-
+import AccountOpenStatusModal from './AccountOpenStatusModal';
 
 const apiUrl = process.env.REACT_APP_BACKEND_URL;
 
@@ -1335,15 +1336,22 @@ const Stageincomponent = (record) => {
       const processedData = response.data.map((item) => ({
         ...item,
         simpleStatus: {
-          ovc: item.ovc?.startsWith('Done') ? 'Done' : 'Not Done',
-          legality: item.legality?.startsWith('Done') ? 'Done' : 'Not Done',
-          idCard: item.idCard?.startsWith('Done') ? 'Done' : 'Not Done',
-          training: item.training?.startsWith('Done') ? 'Done' : 'Not Done',
-          ebook: item.ebook?.startsWith('Done') ? 'Done' : 'Not Done',
-          supportPortal: item.supportPortal?.startsWith('Done') ? 'Done' : 'Not Done',
-          walletPortal: item.walletPortal?.startsWith('Done') ? 'Done' : 'Not Done',
-          gallery: item.gallery?.startsWith('Done') ? 'Done' : 'Not Done',
-          stage1Completion: item.stage1Completion?.startsWith('Done') ? 'Done' : 'Not Done',
+          state: item.state ? 'Done' : 'Not Done',
+          gst: item.gst ? 'Done' : 'Not Done',
+          brandName: item.brandName ? 'Done' : 'Not Done',
+          accountOpenIn: item.accountOpenIn ? 'Done' : 'Not Done',
+          accountOpenStatus: item.accountOpenStatus ? 'Done' : 'Not Done',
+          idAndPassIn: item.idAndPassIn ? 'Done' : 'Not Done',
+          gtin: item.gtin ? 'Done' : 'Not Done',
+          listings: item.listings ? 'Done' : 'Not Done',
+          launchIn: item.launchIn ? 'Done' : 'Not Done',
+          addRegion: item.addRegion ? 'Done' : 'Not Done',
+          shipping: item.shipping ? 'Done' : 'Not Done',
+          fbaIn: item.fbaIn ? 'Done' : 'Not Done',
+          fbaLive: item.fbaLive ? 'Done' : 'Not Done',
+          cvcIn: item.cvcIn ? 'Done' : 'Not Done',
+          stage2Completion: item.stage2Completion ? 'Done' : 'Not Done',
+
         }
       }));
   
@@ -1443,12 +1451,14 @@ const isConditionMet = (baseDate, daysAfter, condition) => {
     },
     {
       title: "State",
-      dataIndex: "state",
+      dataIndex: ["simpleStatus", "state"],
+
+      // dataIndex: "state",
       filters: [
         { text: 'Done', value: 'Done' },
         { text: 'Not Done', value: 'Not Done' },
       ],
-      onFilter: (value, record) => record.state === value,
+      onFilter: (value, record) => record.simpleStatus.state === value,
       render: (text, record) => (
         <Button
         style={{ backgroundColor: record?.state ? '#90EE90' : undefined }}  // Light green if selectedTheme has a value
@@ -1460,12 +1470,13 @@ const isConditionMet = (baseDate, daysAfter, condition) => {
     },
     {
       title: "GST",
-      dataIndex: "gst",
+      dataIndex: ["simpleStatus", "gst"],
+
       filters: [
         { text: 'Done', value: 'Done' },
         { text: 'Not Done', value: 'Not Done' },
       ],
-      onFilter: (value, record) => record.gst === value,
+      onFilter: (value, record) => record.simpleStatus.gst === value,
       render: (text, record) => (
         <Button
           style={{ backgroundColor: record.gst === 'Done' ? '#90EE90' : undefined }}
@@ -1477,12 +1488,13 @@ const isConditionMet = (baseDate, daysAfter, condition) => {
     },
     {
       title: "Brand Name",
-      dataIndex: "brandName",
+      dataIndex: ["simpleStatus", "brandName"],
+
       filters: [
         { text: 'Done', value: 'Done' },
         { text: 'Not Done', value: 'Not Done' },
       ],
-      onFilter: (value, record) => record.brandName === value,
+      onFilter: (value, record) => record.simpleStatus.brandName === value,
       render: (text, record) => (
         <Button
         style={{ backgroundColor: record?.brandName ? '#90EE90' : undefined }}  // Light green if selectedTheme has a value
@@ -1494,12 +1506,12 @@ const isConditionMet = (baseDate, daysAfter, condition) => {
     },
     {
       title: "Account Open IN",
-      dataIndex: "accountOpenIn",
+      dataIndex: ["simpleStatus", "accountOpenIn"],
       filters: [
         { text: 'Done', value: 'Done' },
         { text: 'Not Done', value: 'Not Done' },
       ],
-      onFilter: (value, record) => record.accountOpenIn === value,
+      onFilter: (value, record) => record.simpleStatus.accountOpenIn === value,
       render: (text, record) => (
         <Button
           style={{ backgroundColor: record.accountOpenIn === 'Done' ? '#90EE90' : undefined }}
@@ -1510,13 +1522,27 @@ const isConditionMet = (baseDate, daysAfter, condition) => {
       ),
     },
     {
+      title: "Account Open Status",
+      dataIndex: "accountOpenStatus",
+      render: (text, record) => (
+        <Button
+          style={{ backgroundColor: record.accountOpenStatus ? '#90EE90' : undefined }} // Change to green if a status is selected
+          onClick={() => openModal('accountOpenStatus', record)}
+        >
+          {text || "Select Status"}
+        </Button>
+      ),
+    },
+    
+    
+    {
       title: "ID & PASS",
-      dataIndex: "idAndPassIn",
+      dataIndex: ["simpleStatus", "idAndPassIn"],
       filters: [
         { text: 'Done', value: 'Done' },
         { text: 'Not Done', value: 'Not Done' },
       ],
-      onFilter: (value, record) => record.idAndPassIn === value,
+      onFilter: (value, record) => record.simpleStatus.idAndPassIn === value,
       render: (text, record) => (
         <Button
           onClick={() => openModal('idAndPassIn', record)}
@@ -1530,12 +1556,14 @@ const isConditionMet = (baseDate, daysAfter, condition) => {
     },    
     {
       title: "GTIN",
+      dataIndex: ["simpleStatus", "gtin"],
+
       dataIndex: "gtin",
       filters: [
         { text: 'Done', value: 'Done' },
         { text: 'Not Done', value: 'Not Done' },
       ],
-      onFilter: (value, record) => record.gtin === value,
+      onFilter: (value, record) => record.simpleStatus.gtin === value,
       render: (text, record) => (
         <Button
           style={{ backgroundColor: record.gtin === 'Done' ? '#90EE90' : undefined }}
@@ -1547,12 +1575,12 @@ const isConditionMet = (baseDate, daysAfter, condition) => {
     },
     {
       title: "Listings",
-      dataIndex: "listings",
+      dataIndex: ["simpleStatus", "listings"],
       filters: [
         { text: 'Done', value: 'Done' },
         { text: 'Not Done', value: 'Not Done' },
       ],
-      onFilter: (value, record) => record.listings === value,
+      onFilter: (value, record) => record.simpleStatus.listings === value,
       render: (text, record) => (
         <Button
         style={{ backgroundColor: record?.listingsIn ? '#90EE90' : undefined }}  // Light green if selectedTheme has a value
@@ -1564,12 +1592,13 @@ const isConditionMet = (baseDate, daysAfter, condition) => {
     },
     {
       title: "Launch",
-      dataIndex: "launchIn",
+      dataIndex: ["simpleStatus", "launchIn"],
+
       filters: [
         { text: 'Done', value: 'Done' },
         { text: 'Not Done', value: 'Not Done' },
       ],
-      onFilter: (value, record) => record.launchIn === value,
+      onFilter: (value, record) => record.simpleStatus.launchIn === value,
       render: (text, record) => (
         <Button
           style={{ backgroundColor: record.launchIn === 'Done' ? '#90EE90' : undefined }}
@@ -1581,12 +1610,13 @@ const isConditionMet = (baseDate, daysAfter, condition) => {
     },
     {
       title: "Add Region",
-      dataIndex: "addRegion",
+      dataIndex: ["simpleStatus", "addRegion"],
+
       filters: [
         { text: 'Done', value: 'Done' },
         { text: 'Not Done', value: 'Not Done' },
       ],
-      onFilter: (value, record) => record.addRegion === value,
+      onFilter: (value, record) => record.simpleStatus.addRegion === value,
       render: (text, record) => (
         <Button
           style={{ backgroundColor: record.addRegion === 'Done' ? '#90EE90' : undefined }}
@@ -1598,29 +1628,36 @@ const isConditionMet = (baseDate, daysAfter, condition) => {
     },
     {
       title: "Shipping",
-      dataIndex: "shipping",
+      dataIndex: ["simpleStatus", "shipping"],
       filters: [
         { text: 'Done', value: 'Done' },
         { text: 'Not Done', value: 'Not Done' },
       ],
-      onFilter: (value, record) => record.shipping === value,
+      onFilter: (value, record) => record.simpleStatus.shipping === value,
       render: (text, record) => (
         <Button
-        style={{ backgroundColor: record?.shipping ? '#90EE90' : undefined }}  // Light green if selectedTheme has a value
-        onClick={() => openModal('shipping', record)}
+          style={{
+            backgroundColor: record.shipping === 'easy ship' 
+              ? 'yellow' // Yellow if 'easy ship'
+              : record.shipping === 'self ship' 
+              ? 'lightgreen' // Green if 'self ship'
+              : undefined,  // Default background for other values
+          }}
+          onClick={() => openModal('shipping', record)}
         >
           Shipping
         </Button>
       ),
     },
+    
     {
       title: "FBA",
-      dataIndex: "fbaIn",
+      dataIndex: ["simpleStatus", "fbaIn"],
       filters: [
         { text: 'Done', value: 'Done' },
         { text: 'Not Done', value: 'Not Done' },
       ],
-      onFilter: (value, record) => record.fbaIn === value,
+      onFilter: (value, record) => record.simpleStatus.fbaIn === value,
       render: (text, record) => (
         <Button
           style={{ backgroundColor: record.fbaIn === 'Done' ? '#90EE90' : undefined }}
@@ -1631,13 +1668,33 @@ const isConditionMet = (baseDate, daysAfter, condition) => {
       ),
     },
     {
-      title: "CVC",
-      dataIndex: "cvcIn",
+      title: "FBA Live",
+      dataIndex: ["simpleStatus", "fbaLive"],
+
       filters: [
         { text: 'Done', value: 'Done' },
         { text: 'Not Done', value: 'Not Done' },
       ],
-      onFilter: (value, record) => record.cvcIn === value,
+      onFilter: (value, record) => record.simpleStatus.fbaLive === value,
+      render: (text, record) => (
+        <Button
+          style={{ backgroundColor: record.fbaLive === 'Done' ? '#90EE90' : undefined }}
+          onClick={() => openModal('fbaLive', record)}
+        >
+          FBA Live
+        </Button>
+      ),
+    },
+    
+    {
+      title: "CVC",
+      dataIndex: ["simpleStatus", "cvcIn"],
+
+      filters: [
+        { text: 'Done', value: 'Done' },
+        { text: 'Not Done', value: 'Not Done' },
+      ],
+      onFilter: (value, record) => record.simpleStatus.cvcIn === value,
       render: (text, record) => (
         <Button
           style={{ backgroundColor: record.cvcIn === 'Done' ? '#90EE90' : undefined }}
@@ -1649,12 +1706,12 @@ const isConditionMet = (baseDate, daysAfter, condition) => {
     },
     {
       title: "Stage Completed",
-      dataIndex: "stage2Completion",
+      dataIndex: ["simpleStatus", "stage2Completion"],
       filters: [
         { text: 'Done', value: 'Done' },
         { text: 'Not Done', value: 'Not Done' },
       ],
-      onFilter: (value, record) => record.stage2Completion === value,
+      onFilter: (value, record) => record.simpleStatus.stage2Completion === value,
       render: (text, record) => (
         <Button
           style={{ backgroundColor: record.stage2Completion === 'Done' ? '#90EE90' : undefined }}
@@ -1740,6 +1797,16 @@ const getRowClassName = (record) => {
     fetchData={fetchData}
   />
 )}
+{visibleModal === 'accountOpenStatus' && (
+  <AccountOpenStatusModal
+    visible={true}
+    onCancel={closeModal}
+    record={selectedRecord}
+    fetchData={fetchData}
+  />
+)}
+
+
 
 
       {visibleModal === 'gtin' && (
@@ -1796,6 +1863,15 @@ const getRowClassName = (record) => {
           fetchData={fetchData}
         />
       )}
+
+{visibleModal === 'fbaLive' && (
+  <FBALiveModal
+    visible={true}
+    onCancel={closeModal}
+    record={selectedRecord}
+    fetchData={fetchData}
+  />
+)}
 
 {visibleModal === 'cvc' && (
         <CvcModal

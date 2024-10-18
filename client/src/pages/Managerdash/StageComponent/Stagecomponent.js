@@ -675,17 +675,15 @@ const isRowRed = (record) => {
     // },
     {
       title: "Legality",
-      dataIndex: "legality",
+      dataIndex: ["simpleStatus", "legality"],
       filters: [
         { text: 'Done', value: 'Done' },
         { text: 'Not Done', value: 'Not Done' },
       ],
-      onFilter: (value, record) => record.legality === value,
+      onFilter: (value, record) => record.simpleStatus.legality === value,
       render: (text, record) => (
         <Button
-          style={{
-            backgroundColor: record.legalityLink && record.legality !== 'Done' ? '#FFFF00' : (record.legality === 'Done' ? '#90EE90' : undefined),
-          }}
+          style={{ backgroundColor: record.simpleStatus.legality === 'Done' ? '#90EE90' : undefined }}
           onClick={() => openModal('legality', record)}
         >
           Legality
@@ -695,15 +693,15 @@ const isRowRed = (record) => {
     
     {
       title: "ID Card",
-      dataIndex: "idCard",
+      dataIndex: ["simpleStatus", "idCard"],
       filters: [
         { text: 'Done', value: 'Done' },
         { text: 'Not Done', value: 'Not Done' },
       ],
-      onFilter: (value, record) => record.idCard === value,
+      onFilter: (value, record) => record.simpleStatus.idCard === value,
       render: (text, record) => (
         <Button
-          style={{ backgroundColor: record.idCard === 'Done' ? '#90EE90' : undefined }}
+          style={{ backgroundColor: record.simpleStatus.idCard === 'Done' ? '#90EE90' : undefined }}
           onClick={() => openModal('idCard', record)}
         >
           ID Card
@@ -712,15 +710,15 @@ const isRowRed = (record) => {
     },
     {
       title: "Training",
-      dataIndex: "training",
+      dataIndex: ["simpleStatus", "training"],
       filters: [
         { text: 'Done', value: 'Done' },
         { text: 'Not Done', value: 'Not Done' },
       ],
-      onFilter: (value, record) => record.training === value,
+      onFilter: (value, record) => record.simpleStatus.training === value,
       render: (text, record) => (
         <Button
-          style={{ backgroundColor: record.training === 'Done' ? '#90EE90' : undefined }}
+          style={{ backgroundColor: record.simpleStatus.training === 'Done' ? '#90EE90' : undefined }}
           onClick={() => openModal('training', record)}
         >
           Training
@@ -729,15 +727,15 @@ const isRowRed = (record) => {
     },
     {
       title: "Ebook",
-      dataIndex: "ebook",
+      dataIndex: ["simpleStatus", "ebook"],
       filters: [
         { text: 'Done', value: 'Done' },
         { text: 'Not Done', value: 'Not Done' },
       ],
-      onFilter: (value, record) => record.ebook === value,
+      onFilter: (value, record) => record.simpleStatus.ebook === value,
       render: (text, record) => (
         <Button
-          style={{ backgroundColor: record.ebook === 'Done' ? '#90EE90' : undefined }}
+          style={{ backgroundColor: record.simpleStatus.ebook === 'Done' ? '#90EE90' : undefined }}
           onClick={() => openModal('ebook', record)}
         >
           Ebook
@@ -746,15 +744,15 @@ const isRowRed = (record) => {
     },
     {
       title: "Support Portal",
-      dataIndex: "supportPortal",
+      dataIndex: ["simpleStatus", "supportPortal"],
       filters: [
         { text: 'Done', value: 'Done' },
         { text: 'Not Done', value: 'Not Done' },
       ],
-      onFilter: (value, record) => record.supportPortal === value,
+      onFilter: (value, record) => record.simpleStatus.supportPortal === value,
       render: (text, record) => (
         <Button
-          style={{ backgroundColor: record.supportPortal === 'Done' ? '#90EE90' : undefined }}
+          style={{ backgroundColor: record.simpleStatus.supportPortal === 'Done' ? '#90EE90' : undefined }}
           onClick={() => openModal('supportPortal', record)}
         >
           Support Portal
@@ -763,15 +761,15 @@ const isRowRed = (record) => {
     },
     {
       title: "Wallet Portal",
-      dataIndex: "walletPortal",
+      dataIndex: ["simpleStatus", "walletPortal"],
       filters: [
         { text: 'Done', value: 'Done' },
         { text: 'Not Done', value: 'Not Done' },
       ],
-      onFilter: (value, record) => record.walletPortal === value,
+      onFilter: (value, record) => record.simpleStatus.walletPortal === value,
       render: (text, record) => (
         <Button
-          style={{ backgroundColor: record.walletPortal === 'Done' ? '#90EE90' : undefined }}
+          style={{ backgroundColor: record.simpleStatus.walletPortal === 'Done' ? '#90EE90' : undefined }}
           onClick={() => openModal('walletPortal', record)}
         >
           Wallet Portal
@@ -780,15 +778,15 @@ const isRowRed = (record) => {
     },
     {
       title: "Gallery",
-      dataIndex: "gallery",
+      dataIndex: ["simpleStatus", "gallery"],
       filters: [
         { text: 'Done', value: 'Done' },
         { text: 'Not Done', value: 'Not Done' },
       ],
-      onFilter: (value, record) => record.gallery === value,
+      onFilter: (value, record) => record.simpleStatus.gallery === value,
       render: (text, record) => (
         <Button
-          style={{ backgroundColor: record.gallery === 'Done' ? '#90EE90' : undefined }}
+          style={{ backgroundColor: record.simpleStatus.gallery === 'Done' ? '#90EE90' : undefined }}
           onClick={() => openModal('gallery', record)}
         >
           Gallery
@@ -797,15 +795,15 @@ const isRowRed = (record) => {
     },
     {
       title: "Stage 1 Completed",
-      dataIndex: "stage1Completion",
+      dataIndex: ["simpleStatus", "stage1Completion"],
       filters: [
         { text: 'Done', value: 'Done' },
         { text: 'Not Done', value: 'Not Done' },
       ],
-      onFilter: (value, record) => record.stage1Completion === value,
+      onFilter: (value, record) => record.simpleStatus.stage1Completion === value,
       render: (text, record) => (
         <Button
-          style={{ backgroundColor: record.stage1Completion === 'Done' ? '#90EE90' : undefined }}
+          style={{ backgroundColor: record.simpleStatus.stage1Completion === 'Done' ? '#90EE90' : undefined }}
           onClick={() => openModal('stage1Completion', record)}
         >
           Status
