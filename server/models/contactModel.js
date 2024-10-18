@@ -320,9 +320,10 @@ const contactSchema = new Schema({
   },
   accountOpenStatus: {
     type: String,
-    enum: ['Already', 'Saumiccraft'],  // Optional: limit the values to "Already" and "Saumiccraft"
-    default: '',  // Set default value if needed
+    enum: ['Already', 'Saumiccraft'],  // Allow only these values
+    default: null,  // Set default to null instead of empty string
   },
+  
   stateCom: {
     type: String,
   },

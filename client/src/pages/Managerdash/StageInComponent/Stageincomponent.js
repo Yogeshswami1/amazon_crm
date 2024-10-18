@@ -1526,13 +1526,14 @@ const isConditionMet = (baseDate, daysAfter, condition) => {
       dataIndex: "accountOpenStatus",
       render: (text, record) => (
         <Button
-          style={{ backgroundColor: record.accountOpenStatus ? '#90EE90' : undefined }} // Change to green if a status is selected
+          style={{ backgroundColor: record.accountOpenStatus ? '#90EE90' : undefined }}
           onClick={() => openModal('accountOpenStatus', record)}
         >
-          {text || "Select Status"}
+          {record.accountOpenStatus || "Select Status"}  {/* Display 'Select Status' if null */}
         </Button>
       ),
     },
+    
     
     
     {
