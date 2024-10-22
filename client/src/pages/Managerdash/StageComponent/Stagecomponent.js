@@ -226,6 +226,11 @@ const isRowRed = (record) => {
       ),
     },
     {
+      title: "Batch",
+      dataIndex: "batch",
+      key: "batch",
+    },
+    {
       title: "OVC",
       dataIndex: ["simpleStatus", "ovc"],
       filters: [
