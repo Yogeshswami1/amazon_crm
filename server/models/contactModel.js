@@ -390,6 +390,9 @@ const contactSchema = new Schema({
   fbaComDate: {
     type: String,
   },
+  batch:{
+    type: String,
+  },
   tasks: {
     type: [taskSchema],
     default: [],

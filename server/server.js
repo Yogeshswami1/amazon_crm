@@ -74,6 +74,10 @@ import whatsappRoutes from './routes/whatsapp.js';
 import changesRoutes from './routes/changesRoutes.js';
 import rmdRoutes from './routes/rmdRoutes.js';
 import socialRoutes from './routes/socialRoutes.js';
+import batchRoutes from './routes/batchRoutes.js';
+
+
+
 
 
 
@@ -116,6 +120,10 @@ app.use('/api', changesRoutes);
 app.use('/api/rmd', rmdRoutes);
 app.use('/api/social', socialRoutes);
 app.use('/api', changesRoutes);
+
+app.use('/api/batches', batchRoutes);
+
+
 
 
 

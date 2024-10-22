@@ -119,6 +119,11 @@ import Socialdashboard from "./pages/Social/Dashboard";
 
 import Waba from "./pages/Managerdash/Waba";
 import AmazonAnalytics from "./pages/Managerdash/AmazonAnalytics";
+import BatchDashboard from "./pages/Batch/BatchDashboard";
+
+
+
+
 
 function App() {
   return (
@@ -157,6 +162,11 @@ function App() {
               <ProtectedRoute exact path="/telesalestab" component={Telesalestab} roles={['admin']} />
               <ProtectedRoute exact path="/rmdtab" component={Rmdtab} roles={['admin']} />
               <ProtectedRoute exact path="/socialtab" component={Socialtab} roles={['admin']} />
+              <ProtectedRoute exact path="/batchdashboard" component={BatchDashboard} roles={['admin']} />
+
+
+
+
 
               <ProtectedRoute exact path="/accountantdashboard" component={Accountantdashboard} roles={['accountant']} />
               <ProtectedRoute exact path="/supervisordashboard" component={Supervisordashboard} roles={['supervisor']} />

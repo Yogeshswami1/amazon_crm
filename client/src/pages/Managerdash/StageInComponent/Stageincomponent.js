@@ -1280,7 +1280,7 @@
 
 
 import React, { useState, useEffect } from 'react';
-import { Table, Modal, Input, Button, List, message } from 'antd';
+import { Table, Modal, Input, Button, List, message,Badge } from 'antd';
 import axios from 'axios';
 import moment from 'moment';
 import { toast } from "react-toastify";
@@ -1726,7 +1726,9 @@ const isConditionMet = (baseDate, daysAfter, condition) => {
       title: "Remarks",
       key: "remarks",
       render: (text, record) => (
-        <Button onClick={() => handleOpenRemarksModal(record)}>Remarks</Button>
+        <Badge count={record.remarks.length} offset={[-6, 5]} /* Adjust offset as needed */>
+          <Button onClick={() => handleOpenRemarksModal(record)}>Remarks</Button>
+        </Badge>
       ),
     }
   ];
