@@ -229,6 +229,7 @@ const isRowRed = (record) => {
       title: "Batch",
       dataIndex: "batch",
       key: "batch",
+      width: 70,
     },
     {
       title: "OVC",
