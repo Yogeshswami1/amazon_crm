@@ -5,7 +5,7 @@ import Franchise from './Franchise';
 import Amazon from './Amazon';
 
 const Accountantdashboard = () => {
-  const [view, setView] = useState('website'); // Set default value to 'website'
+  const [view, setView] = useState('amazon'); // Set default value to 'website'
 
   return (
     <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
@@ -14,13 +14,13 @@ const Accountantdashboard = () => {
         value={view} 
         style={{ marginBottom: '20px', display: 'flex' }}
       >      
-        <Radio.Button value="website">Website</Radio.Button>            
-        <Radio.Button value="franchise">Franchise</Radio.Button>            
+        {/* <Radio.Button value="website">Website</Radio.Button>            
+        <Radio.Button value="franchise">Franchise</Radio.Button>             */}
         <Radio.Button value="amazon">Amazon</Radio.Button>            
       </Radio.Group>
-      {view === 'website' && <Dash />}
-      {view === 'franchise' && <Franchise />}
-      {view === 'amazon' && <Amazon />}
+      {view === 'amazon' && <Dash />}
+      {/* {view === 'franchise' && <Franchise />}
+      {view === 'amazon' && <Amazon />} */}
     </div>
   );
 };

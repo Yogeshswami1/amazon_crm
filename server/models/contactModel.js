@@ -179,6 +179,9 @@ const contactSchema = new Schema({
   legalityLink: {
     type: String,
   },
+  billsSent: { type: String }, // New field for bills status
+  legalityStatus: { type: String }, // New field for legality status
+
   // template1Sent: { type: Boolean, default: false },
   // template2Sent: { type: Boolean, default: false },
   // template3Sent: { type: Boolean, default: false },
