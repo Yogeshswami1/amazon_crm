@@ -77,6 +77,7 @@ import socialRoutes from './routes/socialRoutes.js';
 import batchRoutes from './routes/batchRoutes.js';
 
 
+import path from 'path';
 
 
 
@@ -131,6 +132,8 @@ app.use('/api/batches', batchRoutes);
 const PORT = process.env.PORT || 5000;
 
 mongoose.connect(process.env.MONGO_URI, {
+  tlsCAFile: path.resolve('./global-bundle.pem'), // Absolute path
+
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })

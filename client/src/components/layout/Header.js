@@ -260,7 +260,7 @@ const Header = ({ name, subName, onPress }) => {
 
   const logout = () => {
     localStorage.clear();
-    history.push("/");
+    history.push("/");                
     message.success("Successfully logged out!");
   };
 
