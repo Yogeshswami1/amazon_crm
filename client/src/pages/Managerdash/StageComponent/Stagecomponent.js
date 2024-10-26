@@ -80,25 +80,25 @@
 //       //     stage1Completion: item.stage1Completion?.startsWith('Done') ? 'Done' : 'Not Done',
 //       //   }
 //       // }));
-//       const processedData = response.data.map((item) => {
-//         const status = {
-//           ovc: item.ovc ? 'Done' : 'Not Done',
-//           legality: item.legality ? 'Done' : 'Not Done',
-//           idCard: item.idCard ? 'Done' : 'Not Done',
-//           training: item.training ? 'Done' : 'Not Done',
-//           ebook: item.ebook ? 'Done' : 'Not Done',
-//           supportPortal: item.supportPortal ? 'Done' : 'Not Done',
-//           walletPortal: item.walletPortal ? 'Done' : 'Not Done',
-//           gallery: item.gallery ? 'Done' : 'Not Done',
-//           stage1Completion: item.stage1Completion ? 'Done' : 'Not Done',
-//           payment1: item.payment1.amount > 0 ? 'Done' : 'Not Done',
-//           payment2: item.payment2.amount > 0 ? 'Done' : 'Not Done',
-//           payment3: item.payment3.amount > 0 ? 'Done' : 'Not Done',
-//           payment4: item.payment4.amount > 0 ? 'Done' : 'Not Done',
-//         };
+      // const processedData = response.data.map((item) => {
+      //   const status = {
+      //     ovc: item.ovc ? 'Done' : 'Not Done',
+      //     legality: item.legality ? 'Done' : 'Not Done',
+      //     idCard: item.idCard ? 'Done' : 'Not Done',
+      //     training: item.training ? 'Done' : 'Not Done',
+      //     ebook: item.ebook ? 'Done' : 'Not Done',
+      //     supportPortal: item.supportPortal ? 'Done' : 'Not Done',
+      //     walletPortal: item.walletPortal ? 'Done' : 'Not Done',
+      //     gallery: item.gallery ? 'Done' : 'Not Done',
+      //     stage1Completion: item.stage1Completion ? 'Done' : 'Not Done',
+      //     payment1: item.payment1.amount > 0 ? 'Done' : 'Not Done',
+      //     payment2: item.payment2.amount > 0 ? 'Done' : 'Not Done',
+      //     payment3: item.payment3.amount > 0 ? 'Done' : 'Not Done',
+      //     payment4: item.payment4.amount > 0 ? 'Done' : 'Not Done',
+      //   };
       
-//         return { ...item, simpleStatus: status };
-//       });
+      //   return { ...item, simpleStatus: status };
+      // });
       
       
   
@@ -1255,20 +1255,26 @@ const [batches, setBatches] = useState([]);
      const response = await axios.get(`${apiUrl}/api/contact/getall?managerId=${managerId}`);
     
      // Process the data
-     const processedData = response.data.map((item) => ({
-       ...item,
-       simpleStatus: {
-         ovc: item.ovc?.startsWith('Done') ? 'Done' : 'Not Done',
-         legality: item.legality?.startsWith('Done') ? 'Done' : 'Not Done',
-         idCard: item.idCard?.startsWith('Done') ? 'Done' : 'Not Done',
-         training: item.training?.startsWith('Done') ? 'Done' : 'Not Done',
-         ebook: item.ebook?.startsWith('Done') ? 'Done' : 'Not Done',
-         supportPortal: item.supportPortal?.startsWith('Done') ? 'Done' : 'Not Done',
-         walletPortal: item.walletPortal?.startsWith('Done') ? 'Done' : 'Not Done',
-         gallery: item.gallery?.startsWith('Done') ? 'Done' : 'Not Done',
-         stage1Completion: item.stage1Completion?.startsWith('Done') ? 'Done' : 'Not Done',
-       }
-     }));
+     const processedData = response.data.map((item) => {
+      const status = {
+        ovc: item.ovc ? 'Done' : 'Not Done',
+        legality: item.legality ? 'Done' : 'Not Done',
+        idCard: item.idCard ? 'Done' : 'Not Done',
+        training: item.training ? 'Done' : 'Not Done',
+        ebook: item.ebook ? 'Done' : 'Not Done',
+        supportPortal: item.supportPortal ? 'Done' : 'Not Done',
+        walletPortal: item.walletPortal ? 'Done' : 'Not Done',
+        gallery: item.gallery ? 'Done' : 'Not Done',
+        stage1Completion: item.stage1Completion ? 'Done' : 'Not Done',
+        payment1: item.payment1.amount > 0 ? 'Done' : 'Not Done',
+        payment2: item.payment2.amount > 0 ? 'Done' : 'Not Done',
+        payment3: item.payment3.amount > 0 ? 'Done' : 'Not Done',
+        payment4: item.payment4.amount > 0 ? 'Done' : 'Not Done',
+      };
+    
+      return { ...item, simpleStatus: status };
+    });
+    
       // Debugging: Log the processed data to see the archive values
      console.log("Processed Data:", processedData);
       // Filter out entries where archive is either "false", empty, null, or undefined, and service is AMAZON
@@ -1411,8 +1417,8 @@ const isRowRed = (record) => {
        { text: 'Done', value: 'Done' },
        { text: 'Not Done', value: 'Not Done' },
      ],
-     onFilter: (value, record) => record.ovc === value,
-     render: (text, record) => (
+      onFilter: (value, record) => record.simpleStatus.ovc === value,
+render: (text, record) => (
        <Button
          style={{ backgroundColor: record.ovc === 'Done' ? '#90EE90' : undefined }}
          onClick={() => openModal('ovc', record)}
@@ -1428,8 +1434,8 @@ const isRowRed = (record) => {
        { text: 'Done', value: 'Done' },
        { text: 'Not Done', value: 'Not Done' },
      ],
-     onFilter: (value, record) => record.legality === value,
-     render: (text, record) => (
+      onFilter: (value, record) => record.simpleStatus.legality === value,
+render: (text, record) => (
        <Button
          style={{ backgroundColor: record.legality === 'Done' ? '#90EE90' : undefined }}
          onClick={() => openModal('legality', record)}
@@ -1445,8 +1451,8 @@ const isRowRed = (record) => {
        { text: 'Done', value: 'Done' },
        { text: 'Not Done', value: 'Not Done' },
      ],
-     onFilter: (value, record) => record.idCard === value,
-     render: (text, record) => (
+      onFilter: (value, record) => record.simpleStatus.idCard === value,
+render: (text, record) => (
        <Button
          style={{ backgroundColor: record.idCard === 'Done' ? '#90EE90' : undefined }}
          onClick={() => openModal('idCard', record)}
@@ -1462,8 +1468,8 @@ const isRowRed = (record) => {
        { text: 'Done', value: 'Done' },
        { text: 'Not Done', value: 'Not Done' },
      ],
-     onFilter: (value, record) => record.training === value,
-     render: (text, record) => (
+      onFilter: (value, record) => record.simpleStatus.training === value,
+render: (text, record) => (
        <Button
          style={{ backgroundColor: record.training === 'Done' ? '#90EE90' : undefined }}
          onClick={() => openModal('training', record)}
@@ -1479,8 +1485,8 @@ const isRowRed = (record) => {
        { text: 'Done', value: 'Done' },
        { text: 'Not Done', value: 'Not Done' },
      ],
-     onFilter: (value, record) => record.ebook === value,
-     render: (text, record) => (
+      onFilter: (value, record) => record.simpleStatus.ebook === value,
+render: (text, record) => (
        <Button
          style={{ backgroundColor: record.ebook === 'Done' ? '#90EE90' : undefined }}
          onClick={() => openModal('ebook', record)}
@@ -1496,8 +1502,8 @@ const isRowRed = (record) => {
        { text: 'Done', value: 'Done' },
        { text: 'Not Done', value: 'Not Done' },
      ],
-     onFilter: (value, record) => record.supportPortal === value,
-     render: (text, record) => (
+      onFilter: (value, record) => record.simpleStatus.supportPortal === value,
+render: (text, record) => (
        <Button
          style={{ backgroundColor: record.supportPortal === 'Done' ? '#90EE90' : undefined }}
          onClick={() => openModal('supportPortal', record)}
@@ -1513,8 +1519,8 @@ const isRowRed = (record) => {
        { text: 'Done', value: 'Done' },
        { text: 'Not Done', value: 'Not Done' },
      ],
-     onFilter: (value, record) => record.walletPortal === value,
-     render: (text, record) => (
+      onFilter: (value, record) => record.simpleStatus.walletPortal === value,
+render: (text, record) => (
        <Button
          style={{ backgroundColor: record.walletPortal === 'Done' ? '#90EE90' : undefined }}
          onClick={() => openModal('walletPortal', record)}
@@ -1530,8 +1536,8 @@ const isRowRed = (record) => {
        { text: 'Done', value: 'Done' },
        { text: 'Not Done', value: 'Not Done' },
      ],
-     onFilter: (value, record) => record.gallery === value,
-     render: (text, record) => (
+      onFilter: (value, record) => record.simpleStatus.gallery === value,
+render: (text, record) => (
        <Button
          style={{ backgroundColor: record.gallery === 'Done' ? '#90EE90' : undefined }}
          onClick={() => openModal('gallery', record)}
@@ -1542,13 +1548,14 @@ const isRowRed = (record) => {
    },
    {
      title: "Stage 1 Completed",
+     width: 150,
      dataIndex: "stage1Completion",
      filters: [
        { text: 'Done', value: 'Done' },
        { text: 'Not Done', value: 'Not Done' },
      ],
-     onFilter: (value, record) => record.stage1Completion === value,
-     render: (text, record) => (
+      onFilter: (value, record) => record.simpleStatus.stage1Completion === value,
+render: (text, record) => (
        <Button
          style={{ backgroundColor: record.stage1Completion === 'Done' ? '#90EE90' : undefined }}
          onClick={() => openModal('stage1Completion', record)}
