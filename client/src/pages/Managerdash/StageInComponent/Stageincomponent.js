@@ -1327,7 +1327,56 @@ const Stageincomponent = (record) => {
   }, []);
 
 
-    const fetchData = async () => {
+  //   const fetchData = async () => {
+  //   try {
+  //     const managerId = localStorage.getItem("managerId");
+  //     const response = await axios.get(`${apiUrl}/api/contact/getall?managerId=${managerId}`);
+      
+  //     // Process the data
+  //     const processedData = response.data.map((item) => ({
+  //       ...item,
+  //       simpleStatus: {
+  //         state: item.state ? 'Done' : 'Not Done',
+  //         gst: item.gst ? 'Done' : 'Not Done',
+  //         brandName: item.brandName ? 'Done' : 'Not Done',
+  //         accountOpenIn: item.accountOpenIn ? 'Done' : 'Not Done',
+  //         accountOpenStatus: item.accountOpenStatus ? 'Done' : 'Not Done',
+  //         idAndPassIn: item.idAndPassIn ? 'Done' : 'Not Done',
+  //         gtin: item.gtin ? 'Done' : 'Not Done',
+  //         listings: item.listings ? 'Done' : 'Not Done',
+  //         launchIn: item.launchIn ? 'Done' : 'Not Done',
+  //         addRegion: item.addRegion ? 'Done' : 'Not Done',
+  //         shipping: item.shipping ? 'Done' : 'Not Done',
+  //         fbaIn: item.fbaIn ? 'Done' : 'Not Done',
+  //         fbaLive: item.fbaLive ? 'Done' : 'Not Done',
+  //         cvcIn: item.cvcIn ? 'Done' : 'Not Done',
+  //         stage2Completion: item.stage2Completion ? 'Done' : 'Not Done',
+
+  //       }
+  //     }));
+  
+  //     // Debugging: Log the processed data to see the archive values
+  //     console.log("Processed Data:", processedData);
+  
+  //     // Filter out entries where archive is either "false", empty, null, or undefined, and service is AMAZON
+  //     const filteredData = processedData.filter(
+  //       item =>
+  //         (item.archive === "false" || item.archive === "" || item.archive === null || item.archive === undefined) &&
+  //         item.service === "AMAZON"
+  //     );
+  
+  //     // Sort the filtered data in descending order by enrollmentId
+  //     const sortedData = filteredData.sort((a, b) => b.enrollmentId.localeCompare(a.enrollmentId));
+  
+  //     console.log("Filtered & Sorted Data:", sortedData);
+  
+  //     setData(sortedData);
+  //   } catch (error) {
+  //     message.error("Failed to fetch data");
+  //   }
+  // };
+
+  const fetchData = async () => {
     try {
       const managerId = localStorage.getItem("managerId");
       const response = await axios.get(`${apiUrl}/api/contact/getall?managerId=${managerId}`);
@@ -1351,19 +1400,24 @@ const Stageincomponent = (record) => {
           fbaLive: item.fbaLive ? 'Done' : 'Not Done',
           cvcIn: item.cvcIn ? 'Done' : 'Not Done',
           stage2Completion: item.stage2Completion ? 'Done' : 'Not Done',
-
         }
       }));
   
       // Debugging: Log the processed data to see the archive values
       console.log("Processed Data:", processedData);
   
-      // Filter out entries where archive is either "false", empty, null, or undefined, and service is AMAZON
-      const filteredData = processedData.filter(
-        item =>
-          (item.archive === "false" || item.archive === "" || item.archive === null || item.archive === undefined) &&
-          item.service === "AMAZON"
-      );
+      // Filter the data based on whether all fields are "Done" or if any field is "Not Done" or empty
+      const filteredData = processedData.filter(item => {
+        const isAllDone = Object.values(item.simpleStatus).every(status => status === 'Done');
+        const hasAnyNotDoneOrEmpty = Object.values(item.simpleStatus).some(status => status === 'Not Done' || status === '');
+  
+        // Check for archive and service conditions as well
+        const isNotArchived = item.archive === "false" || item.archive === "" || item.archive === null || item.archive === undefined;
+        const isAmazonService = item.service === "AMAZON";
+  
+        // Return fully "Done" entries or entries with any "Not Done" or empty status based on conditions
+        return isNotArchived && isAmazonService && (isAllDone || hasAnyNotDoneOrEmpty);
+      });
   
       // Sort the filtered data in descending order by enrollmentId
       const sortedData = filteredData.sort((a, b) => b.enrollmentId.localeCompare(a.enrollmentId));
@@ -1375,7 +1429,7 @@ const Stageincomponent = (record) => {
       message.error("Failed to fetch data");
     }
   };
-
+  
 
   const handleOpenRemarksModal = (record) => {
     setCurrentRecord(record);
@@ -1468,24 +1522,48 @@ const isConditionMet = (baseDate, daysAfter, condition) => {
         </Button>
       ),
     },
+    // {
+    //   title: "GST",
+    //   dataIndex: ["simpleStatus", "gst"],
+
+    //   filters: [
+    //     { text: 'Done', value: 'Done' },
+    //     { text: 'Not Done', value: 'Not Done' },
+    //   ],
+    //   onFilter: (value, record) => record.simpleStatus.gst === value,
+    //   render: (text, record) => (
+    //     <Button
+    //       style={{ backgroundColor: record.gst === 'Done' ? '#90EE90' : undefined }}
+    //       onClick={() => openModal('gst', record)}
+    //     >
+    //       GST
+    //     </Button>
+    //   ),
+    // },
     {
       title: "GST",
       dataIndex: ["simpleStatus", "gst"],
-
+    
       filters: [
         { text: 'Done', value: 'Done' },
         { text: 'Not Done', value: 'Not Done' },
       ],
+      
+      // Filter based on whether 'gst' status matches the selected filter
       onFilter: (value, record) => record.simpleStatus.gst === value,
+    
+      // Render the button with conditional styling based on 'gst' status
       render: (text, record) => (
         <Button
-          style={{ backgroundColor: record.gst === 'Done' ? '#90EE90' : undefined }}
+          style={{ backgroundColor: record.simpleStatus.gst === 'Done' ? '#90EE90' : undefined }}
           onClick={() => openModal('gst', record)}
         >
           GST
         </Button>
       ),
     },
+    
+    
     {
       title: "Brand Name",
       dataIndex: ["simpleStatus", "brandName"],
