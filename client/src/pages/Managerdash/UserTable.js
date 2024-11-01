@@ -81,7 +81,7 @@ const UserTable = ({ data }) => {
      ),
    },
    {
-     title: 'Stage 2 (In)',
+     title: 'Stage 2 Completed',
      dataIndex: 'stage2Completion',
      key: 'stage2Completion',
      render: (text) => (
@@ -91,7 +91,7 @@ const UserTable = ({ data }) => {
      ),
    },
    {
-     title: 'Stage 2 (COM)',
+     title: 'Stage 3 Completed',
      dataIndex: 'stage3Completion',
      key: 'stage3Completion',
      render: (text) => (

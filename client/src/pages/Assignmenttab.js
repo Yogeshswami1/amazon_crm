@@ -17,6 +17,7 @@ const AssignManagers = () => {
   const [showAssigned, setShowAssigned] = useState(false);
   const [form] = Form.useForm();
   const [searchText, setSearchText] = useState("");
+  const [bulkLoading, setBulkLoading] = useState(false);
 
   useEffect(() => {
     fetchContacts();
@@ -108,7 +109,27 @@ const AssignManagers = () => {
   const handleSearchChange = (e) => {
     setSearchText(e.target.value);
   };
-
+  const handleBulkUnassign = async () => {
+    if (!selectedManagerId) {
+      message.warning("Please select a manager first.");
+      return;
+    }
+   
+    try {
+      setBulkLoading(true);
+      await axios.put(`${apiUrl}/api/contact/unassign-all`, { managerId: selectedManagerId });
+      message.success("All contacts unassigned successfully!");
+      fetchContacts();
+      fetchAssignments();
+      setSelectedManagerId("");
+    } catch (error) {
+      console.error("Error during bulk unassign:", error);
+      message.error("Failed to unassign contacts. Please try again.");
+    } finally {
+      setBulkLoading(false);
+    }
+  };
+ 
   // Filter contacts based on the selected manager and search text
   const filteredContacts = (selectedManagerId
     ? (assignments.find((assignment) => assignment._id === selectedManagerId)?.contacts || [])
@@ -233,6 +254,15 @@ const AssignManagers = () => {
                   onChange={handleSearchChange}
                   style={{ width: 200 }}
                 />
+                <Button
+     type="primary"
+     danger
+     onClick={handleBulkUnassign}
+     loading={bulkLoading}
+   >
+     Bulk Unassign
+   </Button>
+
               </>
             }
           >

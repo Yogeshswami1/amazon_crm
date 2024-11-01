@@ -2,7 +2,7 @@
 // import { Card, Row, Col, Spin, Typography, Select, DatePicker, Input, Button } from 'antd';
 // import axios from 'axios';
 // import {
-//  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
+//   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
 // } from 'recharts';
 // import moment from 'moment';
 // import Papa from 'papaparse';
@@ -15,263 +15,264 @@
 
 
 // const AmazonAnalytics = () => {
-//  const [userData, setUserData] = useState([]);
-//  const [filteredData, setFilteredData] = useState([]);
-//  const [loading, setLoading] = useState(true);
-//  const [selectedYear, setSelectedYear] = useState(null);
-//  const [selectedMonth, setSelectedMonth] = useState(null);
-//  const [selectedBatch, setSelectedBatch] = useState(null);
-//  const [enrollmentIdRange, setEnrollmentIdRange] = useState({ min: '', max: '' }); // Enrollment ID Range
-//  const [dateRange, setDateRange] = useState(null); // Date Range filter
-//  const [brobatches, setBatches] = useState([]);
+//   const [userData, setUserData] = useState([]);
+//   const [filteredData, setFilteredData] = useState([]);
+//   const [loading, setLoading] = useState(true);
+//   const [selectedYear, setSelectedYear] = useState(null);
+//   const [selectedMonth, setSelectedMonth] = useState(null);
+//   const [selectedBatch, setSelectedBatch] = useState(null);
+//   const [enrollmentIdRange, setEnrollmentIdRange] = useState({ min: '', max: '' }); // Enrollment ID Range
+//   const [dateRange, setDateRange] = useState(null); // Date Range filter
+//   const [brobatches, setBatches] = useState([]);
 
 
 
 
-//  const managerId = localStorage.getItem('managerId');
+//   const managerId = localStorage.getItem('managerId');
 
 
-//  useEffect(() => {
-//    if (managerId) {
-//      axios
-//        .get(`${apiUrl}/api/contact/getall?managerId=${managerId}`)
-//        .then(response => {
-//          setUserData(response.data);
-//          setFilteredData(response.data); // Initialize with full data
-//          setLoading(false);
-//        })
-//        .catch(error => {
-//          console.error('Error fetching user data:', error);
-//          setLoading(false);
-//        });
-//    }
-//  }, [managerId]);
-//  useEffect(() => {
-//    const fetchBatches = async () => {
-//      try {
-//        const response = await axios.get(`${apiUrl}/api/batches`); // Replace with the actual API URL
-//        setBatches(response.data); // Assuming API returns an array of batch objects
-//      } catch (error) {
-//        console.error('Error fetching batches:', error);
-//      }
-//    };
+//   useEffect(() => {
+//     if (managerId) {
+//       axios
+//         .get(`${apiUrl}/api/contact/getall?managerId=${managerId}`)
+//         .then(response => {
+//           setUserData(response.data);
+//           setFilteredData(response.data); // Initialize with full data
+//           setLoading(false);
+//         })
+//         .catch(error => {
+//           console.error('Error fetching user data:', error);
+//           setLoading(false);
+//         });
+//     }
+//   }, [managerId]);
+//   useEffect(() => {
+//     const fetchBatches = async () => {
+//       try {
+//         const response = await axios.get(`${apiUrl}/api/batches`); // Replace with the actual API URL
+//         setBatches(response.data); // Assuming API returns an array of batch objects
+//       } catch (error) {
+//         console.error('Error fetching batches:', error);
+//       }
+//     };
 
 
-//    fetchBatches();
-//  }, []);
+//     fetchBatches();
+//   }, []);
 
 
-//  // Handle year, month, batch, enrollment ID range, and date range changes
-//  const handleYearChange = (year) => {
-//    setSelectedYear(year);
-//    filterData(year, selectedMonth, selectedBatch, enrollmentIdRange, dateRange);
-//  };
+//   // Handle year, month, batch, enrollment ID range, and date range changes
+//   const handleYearChange = (year) => {
+//     setSelectedYear(year);
+//     filterData(year, selectedMonth, selectedBatch, enrollmentIdRange, dateRange);
+//   };
 
 
-//  const handleMonthChange = (month) => {
-//    setSelectedMonth(month);
-//    filterData(selectedYear, month, selectedBatch, enrollmentIdRange, dateRange);
-//  };
+//   const handleMonthChange = (month) => {
+//     setSelectedMonth(month);
+//     filterData(selectedYear, month, selectedBatch, enrollmentIdRange, dateRange);
+//   };
 
 
-//  const handleBatchChange = (batch) => {
-//    setSelectedBatch(batch);
-//    filterData(selectedYear, selectedMonth, batch, enrollmentIdRange, dateRange);
-//  };
+//   const handleBatchChange = (batch) => {
+//     setSelectedBatch(batch);
+//     filterData(selectedYear, selectedMonth, batch, enrollmentIdRange, dateRange);
+//   };
 
 
-//  const handleEnrollmentIdChange = (min, max) => {
-//    setEnrollmentIdRange({ min, max });
-//    filterData(selectedYear, selectedMonth, selectedBatch, { min, max }, dateRange);
-//  };
+//   const handleEnrollmentIdChange = (min, max) => {
+//     setEnrollmentIdRange({ min, max });
+//     filterData(selectedYear, selectedMonth, selectedBatch, { min, max }, dateRange);
+//   };
 
 
-//  const handleDateRangeChange = (dates) => {
-//    setDateRange(dates);
-//    filterData(selectedYear, selectedMonth, selectedBatch, enrollmentIdRange, dates);
-//  };
+//   const handleDateRangeChange = (dates) => {
+//     setDateRange(dates);
+//     filterData(selectedYear, selectedMonth, selectedBatch, enrollmentIdRange, dates);
+//   };
 
 
-//  // Filter data based on selected year, month, batch, enrollment ID range, and date range
-//  const filterData = (year, month, batch, enrollmentRange, dates) => {
-//    const filtered = userData.filter(item => {
-//      const itemDate = moment(item.date); // Assuming `date` field is in ISO format
-//      const matchesYear = year ? itemDate.year() === year : true;
-//      const matchesMonth = month ? itemDate.month() === month : true;
-//      const matchesBatch = batch ? item.batch === batch : true;
+//   // Filter data based on selected year, month, batch, enrollment ID range, and date range
+//   const filterData = (year, month, batch, enrollmentRange, dates) => {
+//     const filtered = userData.filter(item => {
+//       const itemDate = moment(item.date); // Assuming `date` field is in ISO format
+//       const matchesYear = year ? itemDate.year() === year : true;
+//       const matchesMonth = month ? itemDate.month() === month : true;
+//       const matchesBatch = batch ? item.batch === batch : true;
     
-//      const matchesEnrollmentId = (!enrollmentRange.min || item.enrollmentId >= enrollmentRange.min) &&
-//                                  (!enrollmentRange.max || item.enrollmentId <= enrollmentRange.max);
+//       const matchesEnrollmentId = (!enrollmentRange.min || item.enrollmentId >= enrollmentRange.min) &&
+//                                   (!enrollmentRange.max || item.enrollmentId <= enrollmentRange.max);
                                 
-//      const matchesDateRange = dates ? (itemDate.isSameOrAfter(dates[0], 'day') && itemDate.isSameOrBefore(dates[1], 'day')) : true;
+//       const matchesDateRange = dates ? (itemDate.isSameOrAfter(dates[0], 'day') && itemDate.isSameOrBefore(dates[1], 'day')) : true;
 
 
-//      return matchesYear && matchesMonth && matchesBatch && matchesEnrollmentId && matchesDateRange;
-//    });
-//    setFilteredData(filtered);
-//  };
+//       return matchesYear && matchesMonth && matchesBatch && matchesEnrollmentId && matchesDateRange;
+//     });
+//     setFilteredData(filtered);
+//   };
 
 
-//  // Filtering metrics
-//  const totalUsers = filteredData.length;
-//  const usersWithGst = filteredData.filter(item => item.gst === 'Done').length;
-//  const accountLaunchIn = filteredData.filter(item => item.launchIn === 'Done').length;
-//  const accountLaunchCom = filteredData.filter(item => item.launchCom === 'Done').length;
-//  const fbaInDone = filteredData.filter(item => item.fbaIn === 'Done').length;
-//  const fbaComDone = filteredData.filter(item => item.fbaCom === 'Done').length;
+//   // Filtering metrics
+//   const totalUsers = filteredData.length;
+//   const usersWithGst = filteredData.filter(item => item.gst === 'Done').length;
+//   const accountLaunchIn = filteredData.filter(item => item.launchIn === 'Done').length;
+//   const accountLaunchCom = filteredData.filter(item => item.launchCom === 'Done').length;
+//   const fbaInDone = filteredData.filter(item => item.fbaIn === 'Done').length;
+//   const fbaComDone = filteredData.filter(item => item.fbaCom === 'Done').length;
 
 
-//  // Prepare data for the chart
-//  const chartData = [
-//    { name: 'Total Users', value: totalUsers },
-//    { name: 'GST Done', value: usersWithGst },
-//    { name: 'Launch .IN', value: accountLaunchIn },
-//    { name: 'Launch .COM', value: accountLaunchCom },
-//    { name: 'FBA .IN', value: fbaInDone },
-//    { name: 'FBA .COM', value: fbaComDone },
-//  ];
+//   // Prepare data for the chart
+//   const chartData = [
+//     { name: 'Total Users', value: totalUsers },
+//     { name: 'GST Done', value: usersWithGst },
+//     { name: 'Launch .IN', value: accountLaunchIn },
+//     { name: 'Launch .COM', value: accountLaunchCom },
+//     { name: 'FBA .IN', value: fbaInDone },
+//     { name: 'FBA .COM', value: fbaComDone },
+//   ];
 
 
-//  const currentYear = moment().year();
-//  const years = Array.from({ length: 5 }, (_, i) => currentYear - i); // Last 5 years
-//  const batches = Array.from({ length: 200 }, (_, i) => `B${i + 1}`); // Generate B1 to B200
+//   const currentYear = moment().year();
+//   const years = Array.from({ length: 5 }, (_, i) => currentYear - i); // Last 5 years
+//   const batches = Array.from({ length: 200 }, (_, i) => `B${i + 1}`); // Generate B1 to B200
 
 
-//  const downloadCSV = () => {
-//    // Define the fields you want in the CSV
-//    const csvData = filteredData.map(item => ({
-//      date: moment(item.date).format('YYYY-MM-DD'),
-//      enrollmentId: item.enrollmentId,
-//      managerPosition: item.managerId?.position,
-//      gst: item.gst,
-//      launchIn: item.launchIn,
-//      launchCom: item.launchCom,
-//      fbaIn: item.fbaIn,
-//      fbaCom: item.fbaCom,
-//    }));
+//   const downloadCSV = () => {
+//     // Define the fields you want in the CSV
+//     const csvData = filteredData.map(item => ({
+//       date: moment(item.date).format('YYYY-MM-DD'),
+//       enrollmentId: item.enrollmentId,
+//       managerPosition: item.managerId?.position,
+//       gst: item.gst,
+//       launchIn: item.launchIn,
+//       launchCom: item.launchCom,
+//       fbaIn: item.fbaIn,
+//       fbaCom: item.fbaCom,
+//     }));
 
 
-//    // Convert JSON data to CSV
-//    const csv = Papa.unparse(csvData);
+//     // Convert JSON data to CSV
+//     const csv = Papa.unparse(csvData);
 
 
-//    // Create a downloadable link for the CSV
-//    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-//    const url = URL.createObjectURL(blob);
-//    const link = document.createElement('a');
-//    link.href = url;
-//    link.setAttribute('download', 'user_data.csv');
-//    document.body.appendChild(link);
-//    link.click();
-//    document.body.removeChild(link);
-//  };
+//     // Create a downloadable link for the CSV
+//     const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+//     const url = URL.createObjectURL(blob);
+//     const link = document.createElement('a');
+//     link.href = url;
+//     link.setAttribute('download', 'user_data.csv');
+//     document.body.appendChild(link);
+//     link.click();
+//     document.body.removeChild(link);
+//   };
 
 
-//  return (
-//    <div style={{ padding: '40px' }}>
-//      <Title level={3} style={{ textAlign: 'center', marginBottom: '30px' }}>
-//        User Statistics Dashboard
-//      </Title>
-//      {loading ? (
-//        <Spin size="large" style={{ display: 'block', margin: '100px auto' }} />
-//      ) : (
-//        <>
-//          <Row justify="center" gutter={[16, 16]} style={{ marginBottom: '20px' }}>
-//          <Button type="primary" onClick={downloadCSV} disabled={loading}>
-//        Download CSV
-//      </Button>
-//            <Col xs={12} md={6}>
-//              <Select
-//                placeholder="Select Year"
-//                onChange={handleYearChange}
-//                style={{ width: '100%' }}
-//                allowClear
-//              >
-//                {years.map(year => (
-//                  <Option key={year} value={year}>
-//                    {year}
-//                  </Option>
-//                ))}
-//              </Select>
-//            </Col>
-//            <Col xs={12} md={6}>
-//              <Select
-//                placeholder="Select Month"
-//                onChange={handleMonthChange}
-//                style={{ width: '100%' }}
-//                allowClear
-//              >
-//                {moment.months().map((month, index) => (
-//                  <Option key={index} value={index}>
-//                    {month}
-//                  </Option>
-//                ))}
-//              </Select>
-//            </Col>
-//            <Col xs={12} md={6}>
-//              <Select
-//                placeholder="Select Batch"
-//                onChange={handleBatchChange}
-//                style={{ width: '100%' }}
-//                allowClear
-//              >
-//               {brobatches.map((batch) => (
-//        <Option key={batch._id} value={batch.batchName}>
-//          {batch.batchName}
-//        </Option>
-//      ))}
-//              </Select>
-//            </Col>
-//            <Col xs={12} md={6}>
-//              <Row gutter={8}>
-//                <Col span={12}>
-//                  <Input
-//                    placeholder="Min Enrollment ID"
-//                    onChange={(e) => handleEnrollmentIdChange(e.target.value, enrollmentIdRange.max)}
-//                  />
-//                </Col>
-//                <Col span={12}>
-//                  <Input
-//                    placeholder="Max Enrollment ID"
-//                    onChange={(e) => handleEnrollmentIdChange(enrollmentIdRange.min, e.target.value)}
-//                  />
-//                </Col>
-//              </Row>
-//            </Col>
-//            <Col xs={12} md={6}>
-//              <RangePicker
-//                onChange={handleDateRangeChange}
-//                style={{ width: '100%' }}
-//              />
-//            </Col>
-//          </Row>
-//          <Row justify="center">
-//            <Col xs={24} md={18} lg={16}>
-//              <Card style={{ padding: '20px' }}>
-//                <ResponsiveContainer width="100%" height={400}>
-//                  <BarChart
-//                    data={chartData}
-//                    margin={{ top: 20, right: 20, left: 0, bottom: 10 }}
-//                  >
-//                    <CartesianGrid strokeDasharray="3 3" />
-//                    <XAxis dataKey="name" />
-//                    <YAxis />
-//                    <Tooltip />
-//                    <Legend />
-//                    <Bar dataKey="value" fill="#1890ff" barSize={50} />
-//                  </BarChart>
-//                </ResponsiveContainer>
-//              </Card>
-//            </Col>
-//          </Row>
-//        </>
-//      )}
-//    </div>
-//  );
+//   return (
+//     <div style={{ padding: '40px' }}>
+//       <Title level={3} style={{ textAlign: 'center', marginBottom: '30px' }}>
+//         User Statistics Dashboard
+//       </Title>
+//       {loading ? (
+//         <Spin size="large" style={{ display: 'block', margin: '100px auto' }} />
+//       ) : (
+//         <>
+//           <Row justify="center" gutter={[16, 16]} style={{ marginBottom: '20px' }}>
+//           <Button type="primary" onClick={downloadCSV} disabled={loading}>
+//         Download CSV
+//       </Button>
+//             <Col xs={12} md={6}>
+//               <Select
+//                 placeholder="Select Year"
+//                 onChange={handleYearChange}
+//                 style={{ width: '100%' }}
+//                 allowClear
+//               >
+//                 {years.map(year => (
+//                   <Option key={year} value={year}>
+//                     {year}
+//                   </Option>
+//                 ))}
+//               </Select>
+//             </Col>
+//             <Col xs={12} md={6}>
+//               <Select
+//                 placeholder="Select Month"
+//                 onChange={handleMonthChange}
+//                 style={{ width: '100%' }}
+//                 allowClear
+//               >
+//                 {moment.months().map((month, index) => (
+//                   <Option key={index} value={index}>
+//                     {month}
+//                   </Option>
+//                 ))}
+//               </Select>
+//             </Col>
+//             <Col xs={12} md={6}>
+//               <Select
+//                 placeholder="Select Batch"
+//                 onChange={handleBatchChange}
+//                 style={{ width: '100%' }}
+//                 allowClear
+//               >
+//                {brobatches.map((batch) => (
+//         <Option key={batch._id} value={batch.batchName}>
+//           {batch.batchName}
+//         </Option>
+//       ))}
+//               </Select>
+//             </Col>
+//             <Col xs={12} md={6}>
+//               <Row gutter={8}>
+//                 <Col span={12}>
+//                   <Input
+//                     placeholder="Min Enrollment ID"
+//                     onChange={(e) => handleEnrollmentIdChange(e.target.value, enrollmentIdRange.max)}
+//                   />
+//                 </Col>
+//                 <Col span={12}>
+//                   <Input
+//                     placeholder="Max Enrollment ID"
+//                     onChange={(e) => handleEnrollmentIdChange(enrollmentIdRange.min, e.target.value)}
+//                   />
+//                 </Col>
+//               </Row>
+//             </Col>
+//             <Col xs={12} md={6}>
+//               <RangePicker
+//                 onChange={handleDateRangeChange}
+//                 style={{ width: '100%' }}
+//               />
+//             </Col>
+//           </Row>
+//           <Row justify="center">
+//             <Col xs={24} md={18} lg={16}>
+//               <Card style={{ padding: '20px' }}>
+//                 <ResponsiveContainer width="100%" height={400}>
+//                   <BarChart
+//                     data={chartData}
+//                     margin={{ top: 20, right: 20, left: 0, bottom: 10 }}
+//                   >
+//                     <CartesianGrid strokeDasharray="3 3" />
+//                     <XAxis dataKey="name" />
+//                     <YAxis />
+//                     <Tooltip />
+//                     <Legend />
+//                     <Bar dataKey="value" fill="#1890ff" barSize={50} />
+//                   </BarChart>
+//                 </ResponsiveContainer>
+//               </Card>
+//             </Col>
+//           </Row>
+//         </>
+//       )}
+//     </div>
+//   );
 // };
 
 
 // export default AmazonAnalytics;
+
 
 
 
@@ -302,8 +303,7 @@ const AmazonAnalytics = () => {
  const [enrollmentIdRange, setEnrollmentIdRange] = useState({ min: '', max: '' }); // Enrollment ID Range
  const [dateRange, setDateRange] = useState(null); // Date Range filter
  const [brobatches, setBatches] = useState([]);
-
-
+ const [graphFilter, setGraphFilter] = useState(null);
 
 
  const managerId = localStorage.getItem('managerId');
@@ -370,7 +370,48 @@ const AmazonAnalytics = () => {
  };
 
 
- // Filter data based on selected year, month, batch, enrollment ID range, and date range
+ // Handle bar click to filter data based on the clicked metric
+ const handleBarClick = (data) => {
+   const key = data.activeLabel;
+    // Filter the data based on both the clicked bar and the active filters
+   const filtered = userData.filter(item => {
+     const itemDate = moment(item.date);
+     const matchesBatch = selectedBatch ? item.batch === selectedBatch : true;
+     const matchesYear = selectedYear ? itemDate.year() === selectedYear : true;
+     const matchesMonth = selectedMonth ? itemDate.month() === selectedMonth : true;
+      const matchesEnrollmentId =
+       (!enrollmentIdRange.min || item.enrollmentId >= enrollmentIdRange.min) &&
+       (!enrollmentIdRange.max || item.enrollmentId <= enrollmentIdRange.max);
+      const matchesDateRange = dateRange
+       ? (itemDate.isSameOrAfter(dateRange[0], 'day') && itemDate.isSameOrBefore(dateRange[1], 'day'))
+       : true;
+      let matchesKey = false;
+     switch (key) {
+       case 'GST Done':
+         matchesKey = item.gst === 'Done';
+         break;
+       case 'Launch .IN':
+         matchesKey = item.launchIn === 'Done';
+         break;
+       case 'Launch .COM':
+         matchesKey = item.launchCom === 'Done';
+         break;
+       case 'FBA .IN':
+         matchesKey = item.fbaIn === 'Done';
+         break;
+       case 'FBA .COM':
+         matchesKey = item.fbaCom === 'Done';
+         break;
+       default:
+         matchesKey = true;
+     }
+      // Return true only if all filters and the graph key match
+     return matchesKey && matchesBatch && matchesYear && matchesMonth && matchesEnrollmentId && matchesDateRange;
+   });
+    setFilteredData(filtered); // Update table with the newly filtered data
+   setGraphFilter(key); // Store the current filter applied via the graph
+ };
+  // Filter data based on selected year, month, batch, enrollment ID range, and date range
  const filterData = (year, month, batch, enrollmentRange, dates) => {
    const filtered = userData.filter(item => {
      const itemDate = moment(item.date); // Assuming `date` field is in ISO format
@@ -536,6 +577,7 @@ const AmazonAnalytics = () => {
                  <BarChart
                    data={chartData}
                    margin={{ top: 20, right: 20, left: 0, bottom: 10 }}
+                   onClick={(data) => handleBarClick(data)}
                  >
                    <CartesianGrid strokeDasharray="3 3" />
                    <XAxis dataKey="name" />
@@ -550,7 +592,7 @@ const AmazonAnalytics = () => {
          </Row>
          <Row justify="center" style={{ marginBottom: '20px' }}>
  <Col xs={24}>
-   <Card title="User Details" bordered={false} style={{ marginBottom: '20px' }}>
+   <Card title={`User Details - ${graphFilter || 'All'}`} bordered={false} style={{ marginBottom: '20px' }}>
      <UserTable data={filteredData} />
    </Card>
  </Col>

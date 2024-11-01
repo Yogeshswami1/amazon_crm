@@ -1279,7 +1279,7 @@
 // export default Stageincomponent;
 
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { Table, Modal, Input, Button, List, message,Badge } from 'antd';
 import axios from 'axios';
 import moment from 'moment';
@@ -1300,6 +1300,7 @@ import IDPASSModal from './IDPASSModal';
 import FBALiveModal from './FBALiveModal';
 import './ModalCss.css';
 import AccountOpenStatusModal from './AccountOpenStatusModal';
+import {debounce} from 'lodash';
 
 const apiUrl = process.env.REACT_APP_BACKEND_URL;
 
@@ -1314,20 +1315,20 @@ const Stageincomponent = (record) => {
   const [visibleModal, setVisibleModal] = useState(null);
   const [selectedRecord, setSelectedRecord] = useState(null);
  
-  const openModal = (modalType, record) => {
+  const openModal = useCallback((modalType, record) => {
     setSelectedRecord(record);
     setVisibleModal(modalType);
-  };
- 
-  const closeModal = () => setVisibleModal(null);
-
-
-  useEffect(() => {
-    fetchData();
   }, []);
+  const closeModal = useCallback(() => setVisibleModal(null), []);
+
+  // useEffect(() => {
+  //   fetchData();
+  // }, []);
 
 
-  //   const fetchData = async () => {
+
+
+  // const fetchData = async () => {
   //   try {
   //     const managerId = localStorage.getItem("managerId");
   //     const response = await axios.get(`${apiUrl}/api/contact/getall?managerId=${managerId}`);
@@ -1351,19 +1352,24 @@ const Stageincomponent = (record) => {
   //         fbaLive: item.fbaLive ? 'Done' : 'Not Done',
   //         cvcIn: item.cvcIn ? 'Done' : 'Not Done',
   //         stage2Completion: item.stage2Completion ? 'Done' : 'Not Done',
-
   //       }
   //     }));
   
   //     // Debugging: Log the processed data to see the archive values
   //     console.log("Processed Data:", processedData);
   
-  //     // Filter out entries where archive is either "false", empty, null, or undefined, and service is AMAZON
-  //     const filteredData = processedData.filter(
-  //       item =>
-  //         (item.archive === "false" || item.archive === "" || item.archive === null || item.archive === undefined) &&
-  //         item.service === "AMAZON"
-  //     );
+  //     // Filter the data based on whether all fields are "Done" or if any field is "Not Done" or empty
+  //     const filteredData = processedData.filter(item => {
+  //       const isAllDone = Object.values(item.simpleStatus).every(status => status === 'Done');
+  //       const hasAnyNotDoneOrEmpty = Object.values(item.simpleStatus).some(status => status === 'Not Done' || status === '');
+  
+  //       // Check for archive and service conditions as well
+  //       const isNotArchived = item.archive === "false" || item.archive === "" || item.archive === null || item.archive === undefined;
+  //       const isAmazonService = item.service === "AMAZON";
+  
+  //       // Return fully "Done" entries or entries with any "Not Done" or empty status based on conditions
+  //       return isNotArchived && isAmazonService && (isAllDone || hasAnyNotDoneOrEmpty);
+  //     });
   
   //     // Sort the filtered data in descending order by enrollmentId
   //     const sortedData = filteredData.sort((a, b) => b.enrollmentId.localeCompare(a.enrollmentId));
@@ -1375,67 +1381,53 @@ const Stageincomponent = (record) => {
   //     message.error("Failed to fetch data");
   //   }
   // };
-
-  const fetchData = async () => {
+  
+  const fetchData = useCallback(async () => {
     try {
       const managerId = localStorage.getItem("managerId");
       const response = await axios.get(`${apiUrl}/api/contact/getall?managerId=${managerId}`);
-      
-      // Process the data
       const processedData = response.data.map((item) => ({
         ...item,
         simpleStatus: {
-          state: item.state ? 'Done' : 'Not Done',
-          gst: item.gst ? 'Done' : 'Not Done',
-          brandName: item.brandName ? 'Done' : 'Not Done',
-          accountOpenIn: item.accountOpenIn ? 'Done' : 'Not Done',
-          accountOpenStatus: item.accountOpenStatus ? 'Done' : 'Not Done',
-          idAndPassIn: item.idAndPassIn ? 'Done' : 'Not Done',
-          gtin: item.gtin ? 'Done' : 'Not Done',
-          listings: item.listings ? 'Done' : 'Not Done',
-          launchIn: item.launchIn ? 'Done' : 'Not Done',
-          addRegion: item.addRegion ? 'Done' : 'Not Done',
-          shipping: item.shipping ? 'Done' : 'Not Done',
-          fbaIn: item.fbaIn ? 'Done' : 'Not Done',
-          fbaLive: item.fbaLive ? 'Done' : 'Not Done',
-          cvcIn: item.cvcIn ? 'Done' : 'Not Done',
-          stage2Completion: item.stage2Completion ? 'Done' : 'Not Done',
+          ovc: item.ovc?.startsWith('Done') ? 'Done' : 'Not Done',
+          legality: item.legality?.startsWith('Done') ? 'Done' : 'Not Done',
+          idCard: item.idCard?.startsWith('Done') ? 'Done' : 'Not Done',
+          training: item.training?.startsWith('Done') ? 'Done' : 'Not Done',
+          ebook: item.ebook?.startsWith('Done') ? 'Done' : 'Not Done',
+          supportPortal: item.supportPortal?.startsWith('Done') ? 'Done' : 'Not Done',
+          walletPortal: item.walletPortal?.startsWith('Done') ? 'Done' : 'Not Done',
+          gallery: item.gallery?.startsWith('Done') ? 'Done' : 'Not Done',
+          stage1Completion: item.stage1Completion?.startsWith('Done') ? 'Done' : 'Not Done',
         }
       }));
-  
-      // Debugging: Log the processed data to see the archive values
-      console.log("Processed Data:", processedData);
-  
-      // Filter the data based on whether all fields are "Done" or if any field is "Not Done" or empty
-      const filteredData = processedData.filter(item => {
-        const isAllDone = Object.values(item.simpleStatus).every(status => status === 'Done');
-        const hasAnyNotDoneOrEmpty = Object.values(item.simpleStatus).some(status => status === 'Not Done' || status === '');
-  
-        // Check for archive and service conditions as well
-        const isNotArchived = item.archive === "false" || item.archive === "" || item.archive === null || item.archive === undefined;
-        const isAmazonService = item.service === "AMAZON";
-  
-        // Return fully "Done" entries or entries with any "Not Done" or empty status based on conditions
-        return isNotArchived && isAmazonService && (isAllDone || hasAnyNotDoneOrEmpty);
-      });
-  
-      // Sort the filtered data in descending order by enrollmentId
+ 
+ 
+      const filteredData = processedData.filter(item =>
+        (item.archive === "false" || item.archive === "" || item.archive === null || item.archive === undefined) &&
+        item.service === "AMAZON"
+      );
+ 
+ 
       const sortedData = filteredData.sort((a, b) => b.enrollmentId.localeCompare(a.enrollmentId));
-  
-      console.log("Filtered & Sorted Data:", sortedData);
-  
       setData(sortedData);
     } catch (error) {
       message.error("Failed to fetch data");
     }
-  };
-  
+  }, []);
+ 
+ 
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
 
-  const handleOpenRemarksModal = (record) => {
+
+
+  const handleOpenRemarksModal = useCallback((record) => {
     setCurrentRecord(record);
     setRemarks(record.remarks || []);
     setIsRemarksModalVisible(true);
-  };
+  }, []);
+ 
 
 
   const handleOpenContactModal = (record) => {
@@ -1444,30 +1436,32 @@ const Stageincomponent = (record) => {
   };
 
 
-  const handleCancel = () => {
+  const handleCancel = useCallback(() => {
     setIsRemarksModalVisible(false);
-    setIsContactModalVisible(false);
     setCurrentRecord(null);
     setNewRemark('');
-  };
+  }, []);
+ 
 
 
-  const handleAddRemark = async () => {
-    if (!newRemark) {
-      toast.error('Remark cannot be empty');
-      return;
-    }
-    try {
-      const updatedRemarks = [...remarks, { text: newRemark, date: new Date() }];
-      await axios.put(`${apiUrl}/api/contact/remark/${currentRecord._id}`, { remarks: updatedRemarks });
-      toast.success("Remark added successfully");
-      setRemarks(updatedRemarks);
-      setNewRemark('');
-      fetchData();
-    } catch (error) {
-      toast.error("Failed to add remark");
-    }
-  };
+
+ 
+const handleAddRemark = debounce(async () => {
+  if (!newRemark) {
+    toast.error('Remark cannot be empty');
+    return;
+  }
+  try {
+    const updatedRemarks = [...remarks, { text: newRemark, date: new Date() }];
+    await axios.put(`${apiUrl}/api/contact/remark/${currentRecord._id}`, { remarks: updatedRemarks });
+    toast.success("Remark added successfully");
+    setRemarks(updatedRemarks);
+    setNewRemark('');
+    fetchData();
+  } catch (error) {
+    toast.error("Failed to add remark");
+  }
+}, 500);
 
 
   const handleDeleteRemark = async (remark) => {
@@ -1491,8 +1485,7 @@ const isConditionMet = (baseDate, daysAfter, condition) => {
   return moment().isAfter(targetDate) && condition;
 };
 
-  const stageColumns = [
-    {
+const stageColumns = useMemo(() => [    {
       title: "Enrollment ID",
       dataIndex: "enrollmentId",
       key: "enrollmentId",
@@ -1809,7 +1802,8 @@ const isConditionMet = (baseDate, daysAfter, condition) => {
         </Badge>
       ),
     }
-  ];
+
+], [handleOpenRemarksModal, openModal]);
 
 
   // Table row class logic
@@ -1823,7 +1817,7 @@ const getRowClassName = (record) => {
   }
   return '';
 };
- 
+
  
   return (
     <div>

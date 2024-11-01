@@ -508,6 +508,30 @@ export const assignManager = async (req, res) => {
   }
 };
 
+//Bulk unssignmanager
+export const bulkUnassignManager = async (req, res) => {
+  const { managerId } = req.body;
+ 
+ 
+  try {
+    // Unassign all contacts with the given managerId
+    const result = await Contact.updateMany(
+      { managerId },
+      { $set: { managerId: null } }
+    );
+ 
+ 
+    res.json({
+      message: "All contacts unassigned successfully",
+      modifiedCount: result.modifiedCount, // Number of contacts updated
+    });
+  } catch (error) {
+    console.error("Error during bulk unassign:", error);
+    res.status(500).send("Server Error");
+  }
+ };
+ 
+
 // Get manager assignments
 // export const getManagerAssignments = async (req, res) => {
 //   try {

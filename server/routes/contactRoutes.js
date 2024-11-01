@@ -23,7 +23,8 @@ import {
   getContacts,
   updateContactByEnrollmentId,
   updateRemarkContactByEnrollmentId,
-  updateAccountOpenStatus 
+  updateAccountOpenStatus ,
+  bulkUnassignManager
 } from "../controllers/contactController.js";
 
 
@@ -42,6 +43,7 @@ router.get("/getall", getAll);
 router.get("/getcontact", getContacts);
 router.post("/add", addContact);
 router.put("/assign-manager", assignManager);
+router.put("/unassign-all", bulkUnassignManager);
 router.delete("/delete-multiple", deleteMultipleContacts);
 
 // New routes for checking existing enrollmentId and primaryContact

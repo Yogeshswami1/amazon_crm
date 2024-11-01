@@ -121,6 +121,7 @@ import Waba from "./pages/Managerdash/Waba";
 import AmazonAnalytics from "./pages/Managerdash/AmazonAnalytics";
 import BatchDashboard from "./pages/Batch/BatchDashboard";
 
+import Growth from "./pages/Managerdash/Growth/Growth";
 
 
 
@@ -155,6 +156,8 @@ function App() {
               <ProtectedRoute exact path="/managersetpassword" component={Managersetpassword} roles={['manager']} />
               <ProtectedRoute exact path="/waba" component={Waba} roles={['manager']} />
               <ProtectedRoute exact path="/amazonanalytics" component={AmazonAnalytics} roles={['manager']} />
+              <ProtectedRoute exact path="/growth" component={Growth} roles={['manager']} />
+
 
 
               <ProtectedRoute exact path="/accountanttab" component={Accountanttab} roles={['admin']} />
