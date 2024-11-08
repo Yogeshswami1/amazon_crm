@@ -1314,6 +1314,10 @@ const Stageincomponent = (record) => {
   const [newRemark, setNewRemark] = useState('');
   const [visibleModal, setVisibleModal] = useState(null);
   const [selectedRecord, setSelectedRecord] = useState(null);
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
+
+  const [pageSize, setPageSize] = useState(10);
  
   const openModal = useCallback((modalType, record) => {
     setSelectedRecord(record);
@@ -1382,10 +1386,15 @@ const Stageincomponent = (record) => {
   //   }
   // };
   
-  const fetchData = useCallback(async () => {
+  const fetchData = useCallback(async (page = 1, pageSize = 10) => {
+    setLoading(true);
+
     try {
       const managerId = localStorage.getItem("managerId");
-      const response = await axios.get(`${apiUrl}/api/contact/getall?managerId=${managerId}`);
+      const response = await axios.get(`${apiUrl}/api/contact/getall?managerId=${managerId}`,{
+        params: { managerId, page, pageSize },
+
+      });
       const processedData = response.data.map((item) => ({
         ...item,
         simpleStatus: {
@@ -1417,9 +1426,8 @@ const Stageincomponent = (record) => {
  
  
   useEffect(() => {
-    fetchData();
-  }, [fetchData]);
-
+    fetchData(page, pageSize);
+  }, [fetchData, page, pageSize]);
 
 
   const handleOpenRemarksModal = useCallback((record) => {
@@ -1818,6 +1826,12 @@ const getRowClassName = (record) => {
   return '';
 };
 
+const handlePageChange = useCallback((page, pageSize) => {
+  setPage(page);
+  setPageSize(pageSize);
+  fetchData(page, pageSize);
+}, [fetchData]);
+
  
   return (
     <div>
@@ -1827,6 +1841,12 @@ const getRowClassName = (record) => {
           dataSource={data}
           rowKey="_id"
           rowClassName={getRowClassName}
+          pagination={{
+            current: page,
+            pageSize,
+            total: 500,  // Replace with total records count from backend
+            onChange: handlePageChange,
+          }}
           scroll={{ x: 'max-content', y: 601 }}
           sticky
         />

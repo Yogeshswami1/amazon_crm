@@ -18,9 +18,10 @@ const AmazonTable = ({ data, tlList = [] }) => {
     if (status === 'Done' || status === 'Completed') {
       return <Tag color="green">Done</Tag>;
     } else {
-      return <Tag color="red">Not Done</Tag>;
+      return <Tag color="red">{status ? "Not Done" : "No Status"}</Tag>;
     }
   };
+  
 
   // Columns for Stage 1
   const columnsOption1 = [
