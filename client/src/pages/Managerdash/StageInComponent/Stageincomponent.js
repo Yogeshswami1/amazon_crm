@@ -1523,46 +1523,46 @@ const stageColumns = useMemo(() => [    {
         </Button>
       ),
     },
-    // {
-    //   title: "GST",
-    //   dataIndex: ["simpleStatus", "gst"],
-
-    //   filters: [
-    //     { text: 'Done', value: 'Done' },
-    //     { text: 'Not Done', value: 'Not Done' },
-    //   ],
-    //   onFilter: (value, record) => record.simpleStatus.gst === value,
-    //   render: (text, record) => (
-    //     <Button
-    //       style={{ backgroundColor: record.gst === 'Done' ? '#90EE90' : undefined }}
-    //       onClick={() => openModal('gst', record)}
-    //     >
-    //       GST
-    //     </Button>
-    //   ),
-    // },
     {
       title: "GST",
       dataIndex: ["simpleStatus", "gst"],
-    
+
       filters: [
         { text: 'Done', value: 'Done' },
         { text: 'Not Done', value: 'Not Done' },
       ],
-      
-      // Filter based on whether 'gst' status matches the selected filter
       onFilter: (value, record) => record.simpleStatus.gst === value,
-    
-      // Render the button with conditional styling based on 'gst' status
       render: (text, record) => (
         <Button
-          style={{ backgroundColor: record.simpleStatus.gst === 'Done' ? '#90EE90' : undefined }}
+          style={{ backgroundColor: record.gst === 'Done' ? '#90EE90' : undefined }}
           onClick={() => openModal('gst', record)}
         >
           GST
         </Button>
       ),
     },
+    // {
+    //   title: "GST",
+    //   dataIndex: ["simpleStatus", "gst"],
+    
+    //   filters: [
+    //     { text: 'Done', value: 'Done' },
+    //     { text: 'Not Done', value: 'Not Done' },
+    //   ],
+      
+    //   // Filter based on whether 'gst' status matches the selected filter
+    //   onFilter: (value, record) => record.simpleStatus.gst === value,
+    
+    //   // Render the button with conditional styling based on 'gst' status
+    //   render: (text, record) => (
+    //     <Button
+    //       style={{ backgroundColor: record.simpleStatus.gst === 'Done' ? '#90EE90' : undefined }}
+    //       onClick={() => openModal('gst', record)}
+    //     >
+    //       GST
+    //     </Button>
+    //   ),
+    // },
     
     
     {
